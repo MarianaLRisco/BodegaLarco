@@ -28,6 +28,10 @@ body{
     from { opacity: 0; }
     to   { opacity: 1; }
 }
+a {
+  text-decoration: none;
+}
+
 
 .card{
     width: 50%;
@@ -99,157 +103,115 @@ body{
     min-height: 100vh;
   }
   
- 
-  .login-content .login-box {
-    position: relative;
-    min-width: 550px;
-    min-height: 390px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.55);
-    /* background-color: #fff; */
-    -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.03), 0px 29px 95px 0px rgba(0, 0, 0, 0.03);
-            box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.03), 0px 29px 95px 0px rgba(0, 0, 0, 0.03);
-    -webkit-perspective: 800px;
-            perspective: 800px;
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-  }
-  
-  .login-content .login-box .login-head {
-    margin-top: 0;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    color: var(--color-black);
-    text-align: center;
-  }
-  
-  .login-content .login-box label {
-    color: #666;
-    font-weight: 700;
-  }
-  
-  .login-content .login-box .utility {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 1px;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-  }
-  
-  .login-content .login-box .btn-container {
-    margin-bottom: 0;
-  }
-  
-  .login-content .login-box .login-form, .login-content .login-box .forget-form {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 40px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-  }
-  
-  .login-content .login-box .forget-form {
-    opacity: 0;
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-  }
-  
-  .login-content .login-box.flipped {
-    min-height: 300px;
-  }
-  
-  .login-content .login-box.flipped .login-form {
-    opacity: 0;
-    -webkit-transform: rotateY(-180deg);
-            transform: rotateY(-180deg);
-  }
-  
-  .login-content .login-box.flipped .forget-form {
-    opacity: 1;
-    -webkit-transform: rotateY(0deg);
-            transform: rotateY(0deg);
-  }
-  
-  @media (max-width: 351px) {
-    .login-content .login-box {
-      min-width: 100%;
-    }
-    .login-content .login-box .login-form, .login-content .login-box .forget-form {
-      width: 100%;
-    }
-  }
-  
-  .lockscreen-content {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    min-height: 100vh;
-  }
-  
-  .lockscreen-content .logo {
-    font-family: "Niconne";
-    margin-bottom: 40px;
-    color: #fff;
-  }
-  
-  .lockscreen-content .logo h1 {
-    font-size: 52px;
-    font-weight: 400;
-  }
-  
-  .lockscreen-content .lock-box {
-    position: relative;
-    min-width: 320px;
-    padding: 20px 40px;
-    background-color: #fff;
-    -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
-            box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
-    -webkit-perspective: 800px;
-            perspective: 800px;
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-  }
-  
-  .lockscreen-content .lock-box .user-image {
-    border: 3px solid #fff;
-    max-width: 100px;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .lockscreen-content .lock-box .user-name {
-    margin-bottom: 2px;
-  }
-  
-  .lockscreen-content .lock-box label {
-    color: #666;
-    font-weight: 700;
-  }
 
+.login-content .login-box {
+  position: relative;
+  min-width: 550px;
+  min-height: 420px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  /* background-color: #fff; */
+  -webkit-box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.03), 0px 29px 95px 0px rgba(0, 0, 0, 0.03);
+          box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.03), 0px 29px 95px 0px rgba(0, 0, 0, 0.03);
+  -webkit-perspective: 800px;
+          perspective: 800px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.login-content .login-box .login-head {
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  color: var(--color-black);
+  text-align: center;
+}
+
+.login-content .login-box label {
+  color: #666;
+  font-weight: 700;
+}
+
+.login-content .login-box .utility {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login-content .login-box .btn-container {
+  margin-bottom: 0;
+}
+
+.login-content .login-box .login-form, .login-content .login-box .forget-form {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.login-content .login-box .forget-form {
+  opacity: 0;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.login-content .login-box.flipped {
+  min-height: 320px;
+}
+
+.login-content .login-box.flipped .login-form {
+  opacity: 0;
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.login-content .login-box.flipped .forget-form {
+  opacity: 1;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+  
+@media (max-width: 576px) {
+  .login-content .login-box {
+    min-width: 300px;
+    min-height: 430px;
+  }
+  .login-content .login-box.flipped{
+    min-width: 300px;
+    min-height: 350px;
+  }
+  .login-content .login-box .login-form, .login-content .login-box .forget-form {
+    width: 100%;
+  }
+  .form-check-label {
+    font-size: 13px;
+  }
+  .font-text{
+    font-size: calc(0.7em + 0.7vw)!important;
+  }
+  .form-control{
+    font-size: calc(0.65em + 0.65vw)!important;
+  }
+  .text-forgot{
+    font-size: 13px;
+  }
+}    
 .form-check-label{
     color: var(--color-black)!important;
     font-weight: 50px!important;
@@ -257,7 +219,7 @@ body{
 }
 
 .text-forgot{
-    font-weight: 500px!important;
+    font-weight: bold!important;
     color: var(--color-blue)!important;
 }
 .text-forgot:hover{
