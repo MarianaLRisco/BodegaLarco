@@ -60,6 +60,19 @@ a {
     text-align:center;
 }
 
+.login-head{
+  font-family:'Roboto', sans-serif;
+  /* font-weight: bold; */
+  /* display: flex; */
+  align-items: center;
+}
+.login-head ion-icon {
+  vertical-align: text-bottom;
+  color: #000000!important;
+  /* margin-right: 1px; */
+  align-self: center;
+}
+
 .font-text{
     font-size: calc(0.5em + 0.5vw);
     font-weight: bold;
