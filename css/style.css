@@ -201,9 +201,13 @@ a {
 }
   
 @media (max-width: 576px) {
+  body {
+    background-image: linear-gradient(rgba(49, 48, 48, 0.45), rgba(26, 26, 24, 0.45)), url('../imagenes/backCelular.png') ;
+  }
   .login-content .login-box {
     min-width: 300px;
     min-height: 430px;
+    background: rgba(255, 255, 255, 0.6);
   }
   .login-content .login-box.flipped{
     min-width: 300px;
