@@ -69,7 +69,7 @@ body{
   align-self: center;
 }
 .logo{
-  width: 47px;;
+  width: 51px;;
   height:74px;
 }
 
@@ -95,16 +95,32 @@ body{
   justify-content: center;
   padding-left: 15px;
   padding-right: 15px;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 23px;
+  padding-bottom: 23px;
   transition: background-color 0.4s;
 }
+.container-icon i.menu, .container-icon a{
+    color: var(--color-black)!important;
+    font-size: 20px;
+}
+
 .container-icon:hover{
   background-color: var(--color-blue-dark)!important;
 }
 
 .container-icon ion-icon{
-  font-size: 28px;
+  font-size: 30px;
+}
+.container-icon ul.dropdown-menu{
+    margin-top: 200px!important;
+    margin-right: 30px!important;
+}
+.container-icon ul.dropdown-menu.show{
+    margin-top: 14px!important;
+    margin-left: 45.5px!important;
+}
+.item:hover{
+    background-color: #acd4f4;
 }
 
 .text-date{
@@ -192,6 +208,13 @@ ul:focus {
   .container-icon ion-icon{
     font-size: 20px;
   }
+  .container-icon ul.show{
+    margin-top: 4px!important;
+    /* position: absolute; */
+  }
+  .item{
+    font-size: 16px!important;
+  }
   .user-info{
     margin-left: 10px;
     margin-right: 10px!important;
@@ -201,7 +224,12 @@ ul:focus {
     padding-bottom: 20px;
   }
   .sidebar{
-    width: 154px; 
+    width: 90px; 
+    align-items: center;
+  }
+  .tmenu{
+    margin-left: 19px!important;
+    align-items: center;
   }
   .nav ul{
     color: var(--color-cream)!important;
