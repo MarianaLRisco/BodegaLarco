@@ -65,21 +65,7 @@ include "conexion.php";
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <?php require "menu_desplegabel.php";?>
                 </ul>
-                <hr>
-                <div class="tmenu dropdown pb-4">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i> <span class="ms-1 d-none d-sm-inline">Cuenta</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="#">New project...</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Sign out</a></li>
-                    </ul>
-                </div>
+                
             </div>
             <div class="col-10 flex-shrink-0 ">
                 <section>
@@ -123,7 +109,7 @@ include "conexion.php";
                                     <td>
                                     <button class="btn btn-sm btn-success" data-controls-modal="your_div_id" data-backdrop="static" data-keyboard="false" 
                                      data-bs-toggle="modal" data-bs-target="#editar_cliente" onclick="ObtenerClienteID(<?php echo $id; ?>);">Editar</button>
-                                    <button class="btn btn-sm btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#">Eliminar</button>
+                                    <button class="btn btn-sm btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_cliente">Eliminar</button>
                                     </td>
                                     
 
@@ -184,7 +170,29 @@ include "conexion.php";
             </div>
         </div>
     </div>
+    
+    <!-- Modal para eliminar -->
+    <div class="modal fade" id="eliminar_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        <div class="mb-2 text-center">
+                           
 
+                        </div>
+                    
+                        <div class="mb-2 text-center">
+                            <button  class="btn btn-secondary" href="#" data-bs-dismiss="modal">cancelar</button>
+                            <button type="submit" class="btn btn-danger" href="#" >Eliminar</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Essential javascripts for application to work-->
     <!-- Essential javascripts for application to work-->
