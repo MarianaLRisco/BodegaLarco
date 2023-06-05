@@ -204,7 +204,7 @@ include "conexion.php";
                     <p id="deleteData_3"></p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
                     <button class="btn btn-danger" id="btnConfirmDelete">Eliminar</button>
                 </div>
             </div>
@@ -270,7 +270,7 @@ include "conexion.php";
 
                 // Enviar solicitud AJAX al servidor para eliminar el registro
                 $.ajax({
-                    url: 'controler/Usuarioscontrol.php?op=elimianr_usuario', // Ruta a tu script PHP para eliminar el registro
+                    url: 'controler/Usuarioscontrol.php?op=eliminar_usuario', // Ruta a tu script PHP para eliminar el registro
                     type: 'POST',
                     data: {
                         id: id

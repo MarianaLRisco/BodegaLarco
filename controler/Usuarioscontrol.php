@@ -30,7 +30,7 @@
         
         break;
 
-        case "elimianr_usuario":
+        case "eliminar_usuario":
             if (isset($_POST['id'])) {
                     $id = $_POST['id'];
                     $usr->EliminarUsuario($id);
