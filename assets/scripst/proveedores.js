@@ -1,9 +1,10 @@
 init();
+var tabla;
 function init() {
   getData();
 }
 function getData() {
-  $("#proveedores").DataTable({
+  tabla = $("#proveedores").DataTable({
     oLanguage: {
       sProcessing: "Procesando...",
       sLengthMenu: "Mostrar _MENU_ registros",
@@ -37,12 +38,12 @@ function ActualizarProveedor(){
   telefono=$('#telefono').val();
   direccion=$('#direccion').val();
   parametros = {
-    "id":id,"proveedor":proveedor,"contacot":contacto,"dni":dni,
+    "id":id,"proveedor":proveedor,"contacto":contacto,"dni":dni,
     "telefono":telefono,"direccion":direccion
   }
   $.ajax({
     data:parametros,
-    url:"controler/Proveedorescontrol.php?op=EditarProveedor",
+    url:"controler/Proveedorescontrol.php?op=actualizarproveedor",
     type:'POST',
     beforeSend:function(){},
     success:function(response){
@@ -56,7 +57,7 @@ function ActualizarProveedor(){
       var mensaje = "Se produjo un error al actualizar los datos.";
       mostrarMensaje(mensaje);
       setTimeout(function() {
-        $('#editar_usuario').modal('hide');
+        $('#editar_proveedor').modal('hide');
       }, 3000);
     }
   });

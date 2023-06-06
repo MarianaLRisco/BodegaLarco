@@ -23,10 +23,9 @@ class Proveedor{
         
     }
 
-    function ActualizarProveedore($id,$proveedor,$contacto,$dni,$telefono,$direccion){
-        $sentencia = "UPDATE proveedro set proveedor='$proveedor',contato='$contacto',DNI='$dni',telefono='$telefono',direccion='$direccion'";
-        $data = $this->Ejecutar($sentencia,1);
-        return $data;
+    function ActualizarProveedor($id,$proveedor,$contacto,$dni,$telefono,$direccion){
+        $sentencia = "UPDATE proveedor set proveedor='$proveedor',contacto='$contacto',DNI='$dni',telefono='$telefono',direccion='$direccion' where idproveedor='$id'";
+        $this->Ejecutar($sentencia,1);
     }
         
     

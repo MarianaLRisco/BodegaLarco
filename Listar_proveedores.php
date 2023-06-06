@@ -64,7 +64,7 @@ include "conexion.php";
                             </thead>
                             <tbody>
                             <?php
-                                $query = mysqli_query($conection,"SELECT * FROM proveedor where estado=1 ORDER BY idproveedor");
+                                $query = mysqli_query($conection,"SELECT * FROM proveedor where estado_p=1 ORDER BY idproveedor");
                                 $resul = mysqli_num_rows($query);
                                 if($resul >0){
                                     while($data = mysqli_fetch_array($query)){
@@ -80,8 +80,8 @@ include "conexion.php";
                                     <td><?php echo $data["telefono"]?></td>
                                     <td><?php echo $data["direccion"]?></td>
                                     <td>
-                                    <button class="btn btn-sm btn-success" data-controls-modal="your_div_id" data-backdrop="static" data-keyboard="false" 
-                                     data-bs-toggle="modal" data-bs-target="#editar_usuario" >Editar</button>
+                                    <button class="btn btn-sm btn-success btn-editar-proveedor"  data-bs-toggle="modal" data-bs-target="#editar_proveedor"
+                                    data-id='<?php echo $data["idproveedor"]?>' >Editar</button>
                                     <button class="btn btn-sm btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_proveedor">Eliminar</button>
                                     </td>
                                     
@@ -101,7 +101,7 @@ include "conexion.php";
     </div>
 
     <!--Modal para editar-->
-    <div class="modal fade" id="editar_usuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editar_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,32 +110,32 @@ include "conexion.php";
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input type="hidden" id="id" name="id">
+                        <input  id="id" name="id">
                         <div class="mb-2">
                             <label for="proveedor">Proveedor</label>
-                            <input type="number" class="form-control" name="proveedor" id="proveedor">
+                            <input type="text" class="form-control" name="proveedor" id="proveedor">
                         </div>
                         <div class="mb-2">
                             <label for="contacto">Contacto</label>
                             <input type="text" class="form-control" name="contacto" id="contacto">
                         </div>
                         <div class="mb-2">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre">
+                            <label for="dni">DNI</label>
+                            <input type="text" class="form-control" name="dni" id="dni">
                         </div>
                         <div class="mb-2">
                             <label for="telefono">Telefono</label>
-                            <input type="email" class="form-control" name="correo" id="correo">
+                            <input type="text" class="form-control" name="telefono" id="telefono">
                         </div>
                         <div class="mb-2">
-                            <label for="Direccion">direccion</label>
+                            <label for="direccion">Direccion</label>
                             <input type="text" class="form-control" name="direccion" id="direccion">
                         </div>
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" href="#" >Guardar</button>
+                            <button  class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarProveedor()">Guardar</button>
 
                         </div>
                     </form>
@@ -176,4 +176,25 @@ include "conexion.php";
     <script src="assets/plugins/DataTables/datatables.min.js"></script>
     <script src="assets/plugins/DataTables/DataTables-1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="assets/scripst/proveedores.js"></script>
+    <script>
+        // Captura el evento clic del botón "Editar" en la tabla
+        $(document).on('click', '.btn-editar-proveedor', function() {
+            // Obtiene los valores de los campos de la fila correspondiente
+            var id = $(this).data('id');
+            var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
+            var columna2 = $(this).closest('tr').find('td:eq(2)').text().trim();
+            var columna3 = $(this).closest('tr').find('td:eq(3)').text().trim();
+            var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
+            var columna5 = $(this).closest('tr').find('td:eq(5)').text().trim();
+
+            // Actualiza los valores en el modal
+            $('#id').val(id);
+            $('#proveedor').val(columna1);
+            $('#contacto').val(columna2);
+            $('#dni').val(columna3);
+            $('#telefono').val(columna4);
+            $('#direccion').val(columna5);
+        });
+
+        </script>
 </body>

@@ -81,7 +81,7 @@ include "conexion.php";
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-editar-cliente" data-bs-toggle="modal" data-bs-target="#editar_cliente" data-id="<?php echo $data["idcliente"] ?>">Editar</button>
                                                 <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                                data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>">Eliminar</button>
+                                                data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>" >Eliminar</button>
                                             </td>
 
 
@@ -133,7 +133,7 @@ include "conexion.php";
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
                             <button type="submit" class="btn btn-primary btnGuardar" href="#" onclick="ActualizarClientes();">Guardar</button>
 
                         </div>
@@ -157,9 +157,11 @@ include "conexion.php";
                     
                     <p>¿Estás seguro de que deseas eliminar este registro?</p>
                     <p id="registroNombre"></p>
+                    <p id="registroApellido"></p>
+                    <p id="registroDNI"></p>
                 </div>
                 <div class="modal-footer">
-                    <button  class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button  class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
                     <button  class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
                 </div>
             </div>
@@ -200,7 +202,11 @@ include "conexion.php";
             $('.btnEliminar').click(function() {
                 var id = $(this).data('id');
                 var nombre = $(this).data('nombre');
-                $('#registroNombre').text('Registro: ' + nombre);
+                var apellido = $(this).data('apellido');
+                var dni = $(this).data('dni');
+                $('#registroNombre').text('Nombre: ' + nombre);
+                $('#registroApellido').text('Apellido: ' + apellido);
+                $('#registroDNI').text('DNI: ' + dni);
                 $('#myModal').modal('show');
 
                 $('#btnEliminarRegistro').click(function() {

@@ -29,7 +29,7 @@
         case "eliminar_cliente":
             if (isset($_POST['id'])) {
                     $id = $_POST['id'];
-                    $usr->EliminarCliente($id);
+                    $cli->EliminarCliente($id);
                     echo 1;
                 }else{
                     echo 0;

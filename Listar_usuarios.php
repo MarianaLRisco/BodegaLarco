@@ -176,7 +176,7 @@ include "conexion.php";
 
                         </div>
                         <div class="mb-2 text-center">
-                            <button class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                            <button class="btn btn-danger" data-dismiss="modal">cancelar</button>
                             <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarUsuario();">Guardar</button>
 
                         </div>
@@ -204,7 +204,7 @@ include "conexion.php";
                     <p id="deleteData_3"></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">cancelar</button>
                     <button class="btn btn-danger" id="btnConfirmDelete">Eliminar</button>
                 </div>
             </div>
