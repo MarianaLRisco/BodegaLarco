@@ -109,7 +109,7 @@ include "conexion.php";
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input id="id" name="id">
+                        <input type="hidden" id="id" name="id">
                         <div class="mb-2">
                             <label for="dni">DNI</label>
                             <input type="text" class="form-control" name="dni" id="dni">

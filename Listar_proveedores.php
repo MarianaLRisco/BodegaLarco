@@ -82,7 +82,9 @@ include "conexion.php";
                                     <td>
                                     <button class="btn btn-sm btn-success btn-editar-proveedor"  data-bs-toggle="modal" data-bs-target="#editar_proveedor"
                                     data-id='<?php echo $data["idproveedor"]?>' >Editar</button>
-                                    <button class="btn btn-sm btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_proveedor">Eliminar</button>
+                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_proveedor" 
+                                    data-id='<?php echo $data["idproveedor"]?>' data-proveedor='<?php echo $data["proveedor"]?>' data-nombre='<?php echo $data["contacto"]?>'
+                                    data-dni='<?php echo $data["DNI"]?>'>Eliminar</button>
                                     </td>
                                     
 
@@ -105,12 +107,12 @@ include "conexion.php";
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Proveedor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input  id="id" name="id">
+                        <input  type='hidden' id="id" name="id">
                         <div class="mb-2">
                             <label for="proveedor">Proveedor</label>
                             <input type="text" class="form-control" name="proveedor" id="proveedor">
@@ -134,7 +136,7 @@ include "conexion.php";
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button  class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarProveedor()">Guardar</button>
 
                         </div>
@@ -154,8 +156,10 @@ include "conexion.php";
                 </div>
                 <div class="modal-body">
                         <div class="mb-2 text-center">
-                           
-
+                        <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                        <p id="registroProveedor"></p>
+                        <p id="registroNombre"></p>
+                        <p id="registroDNI"></p>
                         </div>
                     
                         <div class="mb-2 text-center">
@@ -194,6 +198,33 @@ include "conexion.php";
             $('#dni').val(columna3);
             $('#telefono').val(columna4);
             $('#direccion').val(columna5);
+        });
+
+        $(document).ready(function() {
+            $('.btnEliminar').click(function() {
+                var id = $(this).data('id');
+                var proveedor = $(this).data('proveedor');
+                var nombre = $(this).data('nombre');
+                var dni = $(this).data('dni');
+                $('#registroProveedor').text('Proveedor: ' + proveedor);
+                $('#registroNombre').text('Nombre: ' + nombre);
+                $('#registroDNI').text('DNI: ' + dni);
+                $('#eliminar_proveedor').modal('show');
+
+                $('#eliminar_proveedor').click(function() {
+                    $.ajax({
+                        url: 'controler/Clientescontrol.php?op=eliminar_proveedor',
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
+                            location.reload(); // Recarga la página después de eliminar el registro
+                        }
+                    });
+                });
+            });
         });
 
         </script>

@@ -81,12 +81,14 @@ include "conexion.php";
                                     <td><?php echo $data["proveedor"]?></td>
                                     <td><?php echo $data["categoria"]?></td>
                                     <td>
-                                    <button class="btn btn-sm btn-success" data-controls-modal="your_div_id" data-backdrop="static" data-keyboard="false" 
-                                     data-bs-toggle="modal" data-bs-target="#editar_usuario" onclick="ObtenerUsuarioID(<?php echo $id; ?>);">Editar</button>
-                                    <button class="btn btn-sm btn-danger" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_producto">Eliminar</button>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#" 
+                                    >Agregar</button>
+                                    <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" 
+                                    data-id='<?php echo $data["idproducto"]?>'>Editar</button>
+                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_producto"
+                                    data-id='<?php echo $data["idproducto"]?>' data-nombre='<?php echo $data["nombre"]?>' data-cantidad='<?php echo $data["cantidad"]?>'
+                                    data-proveedor='<?php echo $data["proveedor"]?>' data-categoria='<?php echo $data["categoria"]?>'>Eliminar</button>
                                     </td>
-                                    
-
                                 </tr>
                             <?php
                              }
@@ -102,11 +104,11 @@ include "conexion.php";
     </div>
 
     <!--Modal para editar-->
-    <div class="modal fade" id="editar_usuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Productos</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -118,25 +120,58 @@ include "conexion.php";
                         </div>
                         <div class="mb-2">
                             <label for="precio">Precio</label>
-                            <input type="number" class="form-control" name="precio" id="precio">
+                            <input type="text" class="form-control" name="precio" id="precio">
                         </div>
                         <div class="mb-2">
                             <label for="existencia">existencias</label>
-                            <input type="email" class="form-control" name="existencia" id="existencia">
+                            <input type="text" class="form-control" name="existencia" id="existencia">
                         </div>
                         <div class="mb-2">
                             <label for="proveedor">Proveedor</label>
-                            <input type="text" class="form-control" name="proveedor" id="proveedor">
+                            <?php
+                            $query_rol = mysqli_query($conection, 'SELECT idproveedor, proveedor FROM proveedor');
+                            $result_rol = mysqli_num_rows($query_rol)
+
+
+                            ?>
+                            <select class="form-select" name="proveedor" id="proveedor">
+                                <?php
+                                if ($result_rol > 0) {
+                                    while ($rol = mysqli_fetch_array($query_rol)) {
+                                ?>
+                                        <option value="<?php echo $rol['idproveedor'] ?>"><?php echo $rol['proveedor'] ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
+
                         <div class="mb-2">
                             <label for="categoria">Categoria</label>
-                            <input type="text" class="form-control" name="categoria" id="categoria">
+                            <?php
+                            $query_rol = mysqli_query($conection, 'SELECT idcategoria, nombre FROM categoria');
+                            $result_rol = mysqli_num_rows($query_rol)
+
+
+                            ?>
+                            <select class="form-select" name="categoria" id="categoria">
+                                <?php
+                                if ($result_rol > 0) {
+                                    while ($rol = mysqli_fetch_array($query_rol)) {
+                                ?>
+                                        <option value="<?php echo $rol['idcategoria'] ?>"><?php echo $rol['nombre'] ?></option>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-primary" href="#">Guardar</button>
+                            <button  class="btn btn-danger" data-dismiss="modal">cancelar</button>
+                            <button type="submit" class="btn btn-primary" href="#" onclick="">Guardar</button>
 
                         </div>
                     </form>
@@ -155,13 +190,16 @@ include "conexion.php";
                 </div>
                 <div class="modal-body">
                         <div class="mb-2 text-center">
-                           
-
+                        
+                        <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                        <p id="registroNombre"></p>
+                        <p id="registroExistencia"></p>
+                        <p id="registroProveedor"></p>
+                        <p id="registroCategoria"></p>
                         </div>
-                    
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-secondary" href="#" data-bs-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-danger" href="#" >Eliminar</button>
+                            <button  class="btn btn-primary" href="#" data-bs-dismiss="modal">cancelar</button>
+                            <button type="submit" class="btn btn-danger eliminar_proveedor" href="#">Eliminar</button>
                         </div>
                 </div>
             </div>
@@ -176,4 +214,61 @@ include "conexion.php";
     <script src="assets/plugins/DataTables/datatables.min.js"></script>
     <script src="assets/plugins/DataTables/DataTables-1.13.4/js/dataTables.bootstrap5.min.js"></script>
     <script src="assets/scripst/productos.js"></script>
+    <script>
+        // Captura el evento clic del botón "Editar" en la tabla
+        $(document).on('click', '.btn-editar-productos', function() {
+            // Obtiene los valores de los campos de la fila correspondiente
+            var id = $(this).data('id');
+            var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
+            var columna2 = $(this).closest('tr').find('td:eq(2)').text().trim();
+            var columna3 = $(this).closest('tr').find('td:eq(3)').text().trim();
+            var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
+            var columna5 = $(this).closest('tr').find('td:eq(5)').text().trim();
+            
+
+            // Actualiza los valores en el modal
+            $('#id').val(id);
+            $('#nombre').val(columna1);
+            $('#precio').val(columna2);
+            $('#existencia').val(columna3);
+            $('#proveedor option').filter(function() {
+                return $(this).text() === columna4;
+            }).prop('selected', true);
+            $('#categoria option').filter(function() {
+                return $(this).text() === columna5;
+            }).prop('selected', true);
+        });
+
+        $(document).ready(function() {
+            $('.btnEliminar').click(function() {
+                var id = $(this).data('id');
+                var proveedor = $(this).data('proveedor');
+                var nombre = $(this).data('nombre');
+                var existencia = $(this).data('cantidad');
+                var categoria = $(this).data('categoria');
+                
+                $('#registroNombre').text('Nombre: ' + nombre);
+                $('#registroExistencia').text('Cantidad: ' + existencia);
+                $('#registroProveedor').text('Proveedor: ' + proveedor);
+                $('#registroCategoria').text('Categoria: ' + categoria);
+                $('#eliminar_producto').modal('show');
+
+                $('#eliminar_proveedor').click(function() {
+                    $.ajax({
+                        url: 'controler/Clientescontrol.php?op=eliminar_proveedor',
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
+                            location.reload(); // Recarga la página después de eliminar el registro
+                        }
+                    });
+                });
+            });
+        });
+
+
+    </script>
 </body>
