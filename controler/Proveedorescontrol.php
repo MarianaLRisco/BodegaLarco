@@ -15,7 +15,7 @@
                     $dni = $_POST['dni'];
                     $telefono = $_POST['telefono'];
                     $direccion = $_POST['direccion'];
-                    $cli->actualizarproveedor($id,$proveedor,$contacto,$dni,$telefono,$direccion);
+                    $prov->actualizarproveedor($id,$proveedor,$contacto,$dni,$telefono,$direccion);
                     echo 1;
                 }else{
                     echo 0;
@@ -24,6 +24,8 @@
                 echo 0;
             }
         break;
+
+        
     }
 
 ?>
