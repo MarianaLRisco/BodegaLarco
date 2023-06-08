@@ -1,7 +1,7 @@
 <?php
 require "../config/Conexion.php";
 
-class Cliente{
+class Producto{
     private $cnx;
 
     function __construct()
@@ -18,22 +18,28 @@ class Cliente{
         }else{
             $this->cnx -> Consulta($sentencia,$op);
             $this->cnx -> desconectar();
-        }
-        
-        
+        }   
     }
 
-    //Funciones del crud
-    function ActualizarCliente($id,$dni,$nombre,$apellido,$telefono,$direccion){
-        $sentencia = "UPDATE cliente SET DNI='$dni',nombre='$nombre',apellido='$apellido',telefono='$telefono',direccion='$direccion' WHERE idcliente='$id';";
+    function ActualizarProducto($id,$nombre,$categoria,$proveedor, $precio, $cantidad){
+        $sentencia = "UPDATE producto SET nombre='$nombre',idcategoria='$categoria',proveedor='$proveedor',precio='$precio',
+        cantidad='$cantidad' WHERE idproducto='$id';";
         $this->Ejecutar($sentencia,1);
     }
-    function EliminarCliente($id){
-        $sentencia = "UPDATE cliente SET estado_c=0 WHERE idcliente='$id';";
+
+    function EliminarProducto($id){
+        $sentencia = "UPDATE producto SET estado_c=0 WHERE idproducto='$id';";
         $this->Ejecutar($sentencia,1);
     }
-    
+
+
+
 }
+
+
+
+
+
 
 
 ?>

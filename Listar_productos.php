@@ -26,7 +26,7 @@ include "conexion.php";
 </head>
 
 <body>
-    <?php require "header.php";?>
+    <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
@@ -35,9 +35,9 @@ include "conexion.php";
 
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php";?>
+                    <?php require "menu_desplegabel.php"; ?>
                 </ul>
-                
+
             </div>
             <div class="col-10 flex-shrink-0 ">
                 <section>
@@ -63,37 +63,37 @@ include "conexion.php";
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-                                $query = mysqli_query($conection,"SELECT p.idproducto, p.nombre, p.precio,p.cantidad,pv.proveedor, c.nombre as 'categoria' FROM producto p inner join proveedor pv 
+                                <?php
+                                $query = mysqli_query($conection, "SELECT p.idproducto, p.nombre, p.precio,p.cantidad,pv.proveedor, c.nombre as 'categoria' FROM producto p inner join proveedor pv 
                                 on p.proveedor=pv.idproveedor inner join categoria c on p.idcategoria=c.idcategoria where estado_c=1 ORDER BY p.idproducto");
                                 $resul = mysqli_num_rows($query);
-                                if($resul >0){
-                                    while($data = mysqli_fetch_array($query)){
-                                    $id = $data["idproducto"];
-                  
-                            ?>
-                            
-                                <tr>
-                                    <td><?php echo $data["idproducto"]?></td>
-                                    <td><?php echo $data["nombre"]?></td>
-                                    <td><?php echo $data["precio"]?></td>
-                                    <td><?php echo $data["cantidad"]?></td>
-                                    <td><?php echo $data["proveedor"]?></td>
-                                    <td><?php echo $data["categoria"]?></td>
-                                    <td>
-                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#" 
-                                    >Agregar</button>
-                                    <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" 
-                                    data-id='<?php echo $data["idproducto"]?>'>Editar</button>
-                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_producto"
-                                    data-id='<?php echo $data["idproducto"]?>' data-nombre='<?php echo $data["nombre"]?>' data-cantidad='<?php echo $data["cantidad"]?>'
-                                    data-proveedor='<?php echo $data["proveedor"]?>' data-categoria='<?php echo $data["categoria"]?>'>Eliminar</button>
-                                    </td>
-                                </tr>
-                            <?php
-                             }
-                            }
-                            ?>
+                                if ($resul > 0) {
+                                    while ($data = mysqli_fetch_array($query)) {
+
+                                ?>
+
+                                        <tr>
+                                            <td><?php echo $data["idproducto"] ?></td>
+                                            <td><?php echo $data["nombre"] ?></td>
+                                            <td><?php echo $data["precio"] ?></td>
+                                            <td><?php echo $data["cantidad"] ?></td>
+                                            <td><?php echo $data["proveedor"] ?></td>
+                                            <td><?php echo $data["categoria"] ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning btnAgregar" data-bs-toggle="modal" data-bs-target="#agregar_producto"
+                                                data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>'
+                                                data-proveedor='<?php echo $data["proveedor"] ?>'>Agregar</button>
+                                                <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" 
+                                                data-id='<?php echo $data["idproducto"] ?>'>Editar</button>
+                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#myModal" 
+                                                data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>' data-cantidad='<?php echo $data["cantidad"] ?>' 
+                                                data-proveedor='<?php echo $data["proveedor"] ?>' data-categoria='<?php echo $data["categoria"] ?>'>Eliminar</button>
+                                            </td>
+                                        </tr>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
                         <a class="btn btn-primary" href="#" role="button">Crear usuario</a>
@@ -123,8 +123,8 @@ include "conexion.php";
                             <input type="text" class="form-control" name="precio" id="precio">
                         </div>
                         <div class="mb-2">
-                            <label for="existencia">existencias</label>
-                            <input type="text" class="form-control" name="existencia" id="existencia">
+                            <label for="cantidad">existencias</label>
+                            <input type="text" class="form-control" name="cantidad" id="cantidad">
                         </div>
                         <div class="mb-2">
                             <label for="proveedor">Proveedor</label>
@@ -170,8 +170,8 @@ include "conexion.php";
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-danger" data-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-primary" href="#" onclick="">Guardar</button>
+                            <button class="btn btn-danger" data-dismiss="modal">cancelar</button>
+                            <button class="btn btn-primary" href="#" onclick="ActualizarProducto();">Guardar</button>
 
                         </div>
                     </form>
@@ -181,7 +181,7 @@ include "conexion.php";
     </div>
 
     <!-- Modal para eliminar -->
-    <div class="modal fade" id="eliminar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -189,22 +189,61 @@ include "conexion.php";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <div class="mb-2 text-center">
-                        
+                    <div class="mb-2 text-center">
+
                         <p>¿Estás seguro de que deseas eliminar este registro?</p>
                         <p id="registroNombre"></p>
                         <p id="registroExistencia"></p>
                         <p id="registroProveedor"></p>
                         <p id="registroCategoria"></p>
-                        </div>
-                        <div class="mb-2 text-center">
-                            <button  class="btn btn-primary" href="#" data-bs-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-danger eliminar_proveedor" href="#">Eliminar</button>
-                        </div>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <button class="btn btn-primary" href="#" data-bs-dismiss="modal">cancelar</button>
+                        <button type="submit" class="btn btn-danger" id="btnEliminarRegistro" href="#">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Modal para agregar productos -->
+    <div class="modal fade" id="agregar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Productos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="mb-2 text-center">
+                            <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                            <p id="registroNombre"></p>
+                            <p id="registroProducto"></p>
+                    </div>
+                    <form>
+                        <input type="hidden" id="id" name="id">
+                        
+                        <div class="mb-2">
+                            <label for="precio">Precio</label>
+                            <input type="text" class="form-control" name="precio" id="precio">
+                        </div>
+                        <div class="mb-2">
+                            <label for="cantidad">existencias</label>
+                            <input type="text" class="form-control" name="cantidad" id="cantidad">
+                        </div>
+                        <div class="mb-2" id="message">
+                        </div>
+                        <div class="mb-2 text-center">
+                            <button class="btn btn-danger" data-dismiss="modal">cancelar</button>
+                            <button class="btn btn-primary" href="#" onclick="">Guardar</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!--Essential javascripts for application to work-->
     <!-- Essential javascripts for application to work-->
     <script src="js/getdate.js?869"></script>
@@ -224,13 +263,13 @@ include "conexion.php";
             var columna3 = $(this).closest('tr').find('td:eq(3)').text().trim();
             var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
             var columna5 = $(this).closest('tr').find('td:eq(5)').text().trim();
-            
+
 
             // Actualiza los valores en el modal
             $('#id').val(id);
             $('#nombre').val(columna1);
             $('#precio').val(columna2);
-            $('#existencia').val(columna3);
+            $('#cantidad').val(columna3);
             $('#proveedor option').filter(function() {
                 return $(this).text() === columna4;
             }).prop('selected', true);
@@ -239,23 +278,20 @@ include "conexion.php";
             }).prop('selected', true);
         });
 
-        $(document).ready(function() {
-            $('.btnEliminar').click(function() {
+        $(document).ready( function() {
+            // Obtiene los valores de los campos de la fila correspondiente
+            $('.btnAgregar').click(function() {
                 var id = $(this).data('id');
                 var proveedor = $(this).data('proveedor');
                 var nombre = $(this).data('nombre');
-                var existencia = $(this).data('cantidad');
-                var categoria = $(this).data('categoria');
-                
-                $('#registroNombre').text('Nombre: ' + nombre);
-                $('#registroExistencia').text('Cantidad: ' + existencia);
-                $('#registroProveedor').text('Proveedor: ' + proveedor);
-                $('#registroCategoria').text('Categoria: ' + categoria);
-                $('#eliminar_producto').modal('show');
 
-                $('#eliminar_proveedor').click(function() {
+                $('#registroNombre').text('Nombre: ' + nombre);
+                $('#registroProveedor').text('Proveedor: ' + proveedor);
+                $('#agregar_producto').modal('show');
+
+                $('#btnEliminarRegistro').click(function() {
                     $.ajax({
-                        url: 'controler/Clientescontrol.php?op=eliminar_proveedor',
+                        url: 'controler/Productoscontrol.php?op=eliminar_producto',
                         type: 'POST',
                         data: {
                             id: id
@@ -269,6 +305,36 @@ include "conexion.php";
             });
         });
 
+        
 
+        $(document).ready(function() {
+            $('.btnEliminar').click(function() {
+                var id = $(this).data('id');
+                var proveedor = $(this).data('proveedor');
+                var nombre = $(this).data('nombre');
+                var existencia = $(this).data('cantidad');
+                var categoria = $(this).data('categoria');
+
+                $('#registroNombre').text('Nombre: ' + nombre);
+                $('#registroExistencia').text('Cantidad: ' + existencia);
+                $('#registroProveedor').text('Proveedor: ' + proveedor);
+                $('#registroCategoria').text('Categoria: ' + categoria);
+                $('#eliminar_producto').modal('show');
+
+                $('#btnEliminarRegistro').click(function() {
+                    $.ajax({
+                        url: 'controler/Productoscontrol.php?op=eliminar_producto',
+                        type: 'POST',
+                        data: {
+                            id: id
+                        },
+                        success: function(response) {
+                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
+                            location.reload(); // Recarga la página después de eliminar el registro
+                        }
+                    });
+                });
+            });
+        });
     </script>
 </body>

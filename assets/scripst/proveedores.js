@@ -54,6 +54,7 @@ function ActualizarProveedor(){
       
     },
     error: function() {
+      tabla.ajax.reload();
       // Mostrar un mensaje de error si la solicitud AJAX falla
       var mensaje = "Se produjo un error al actualizar los datos.";
       mostrarMensaje(mensaje);

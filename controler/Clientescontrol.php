@@ -1,6 +1,7 @@
 <?php
     
     require "../model/clientes.php";
+    include "../conexion.php";
     session_start();
     $cli = new Cliente();
 
@@ -34,6 +35,26 @@
                 }else{
                     echo 0;
                 }
+        break;
+
+        case 'BuscarClienteDNI':
+            if (!empty($_POST['dni'])) {
+                $dni= $_POST['dni'];
+                $query = mysqli_query($conection,"SELECT * FROM cliente WHERE DNI LIKE '$dni' and estado_c=1 " );
+                mysqli_close($conection);
+                $result = mysqli_num_rows($query);
+                $data='';
+                if ($result>0) {
+                    $data = mysqli_fetch_assoc($query);
+                }else{
+                    $data=0;
+                }
+                
+                echo json_encode($data, JSON_UNESCAPED_UNICODE );
+            }else{
+                echo 0;
+            }
+        
         break;
 
     }

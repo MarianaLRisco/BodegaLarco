@@ -49,7 +49,7 @@ if (!empty($_POST)) {
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel='stylesheet' href='css/system.css?474'>
-    <script src="libs/jquery-3.6.1.min.js" charset="utf-8"></script>
+    <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
     <script src="https://kit.fontawesome.com/b9a5eec5a5.js" crossorigin="anonymous"></script>
@@ -98,9 +98,10 @@ if (!empty($_POST)) {
                                 <div class="row border rounded">
                                     <hr class="transparent-hr">
                                     </hr>
+                                    <input type="hidden" name='idcliente' id="idcliente">
                                     <div class="col">
-                                        <label for="nombre">DNI</label>
-                                        <input type="text" pattern="[0-9]{8}" class="form-control" name="dni" id="dni" placeholder="">
+                                        <label for="dni">DNI</label>
+                                        <input type="text" class="form-control" name="dni" id="dni">
                                     </div>
                                     <div class="col">
                                         <label for="nombre">Nombre</label>
@@ -112,10 +113,15 @@ if (!empty($_POST)) {
                                     </div>
                                     <div>
                                         <label for="direccion">Direccion</label>
-                                        <input type="text" class="form-control bg-light" name="direccion" id="direccion" readonly value="holas">
+                                        <input type="text" class="form-control bg-light" name="direccion" id="direccion" readonly>
                                         <hr class="transparent-hr">
                                         </hr>
                                     </div>
+                                    <div class="text-center" id="registro_cliente">
+                                    <a class="btn btn-primary btn_cliente" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
+                                    </div>
+                                    <hr class="transparent-hr">
+                                    </hr>
                             </form>
                         </div>
                         <hr class="transparent-hr">
@@ -135,10 +141,12 @@ if (!empty($_POST)) {
                                     <tr>
                                         <td id="idproducto">--</td>
                                         <td>
-                                        <input type="text" name="nombre_p" id="nombre_p">
+                                            <input type="text" name="nombre_p" id="nombre_p">
                                         </td>
                                         <td id="existencias">--</td>
-                                        <td><div class="col-sm-6"><input class="form-control form-control-sm text-end" type="text" name="cantidad" id="cantidad" value="0" min="1"></div></td>
+                                        <td>
+                                            <div class="col-sm-6"><input class="form-control form-control-sm text-end" type="text" name="cantidad" id="cantidad" value="0" min="1"></div>
+                                        </td>
                                         <td id="precio" class="text-end">0.00</td>
                                         <td id="precio_totla" class="text-end">0.00</td>
                                         <td><a class="btn btn-primary" href="#" role="button">Agregar</a></td>
@@ -146,7 +154,7 @@ if (!empty($_POST)) {
                                     <tr>
                                         <th>Codigo</th>
                                         <th colspan="2">Nombre</th>
-                                        <th >cantidad</th>
+                                        <th>cantidad</th>
                                         <th>Precio</th>
                                         <th>Precio total</th>
                                         <th>Accion</th>
@@ -156,7 +164,7 @@ if (!empty($_POST)) {
                                     <tr>
                                         <td>001</td>
                                         <td colspan="2">gaseosa cocacola</td>
-                                        <td >1</td>
+                                        <td>1</td>
                                         <td class="text-end">6.50</td>
                                         <td class="text-end">6.50</td>
                                         <td><a class="btn btn-danger" href="#" role="button" onclick="event.preventDefault(); ">Eliminar</a></td>
@@ -187,7 +195,43 @@ if (!empty($_POST)) {
 
 </body>
 <!-- Essential javascripts for application to work-->
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="assets/libs/jquery-3.7.0.min.js"></script>
 <script src="js/getdate.js?869"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/menu.js?7796"></script>
+<script >
+        $(document).ready(function () {
+        $("#dni").keyup(function (e) {
+            e.preventDefault();
+            var cl = $(this).val();
+            parametros = {
+            dni: cl,
+            };
+            $.ajax({
+            data: parametros,
+            url: "controler/Clientescontrol.php?op=BuscarClienteDNI",
+            type: "POST",
+            async: true,
+            success: function (response) {
+                console.log(response);
+                if(response==0){
+                    $('#idcliente').val('');
+                    $('#nombre').val('');
+                    $('#apellido').val('');
+                    $('#direccion').val('');
+                    $('#registro_cliente').slideDown();
+                }else{
+                    var data = $.parseJSON(response);
+                    $('#idcliente').val(data.idcliente);
+                    $('#nombre').val(data.nombre);
+                    $('#apellido').val(data.apellido);
+                    $('#direccion').val(data.direccion);
+                    $('#registro_cliente').slideUp();
+                }
+            },
+            error: function () {},
+            });
+        });
+        //buscar cliente
+        });
+</script>

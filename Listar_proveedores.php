@@ -82,7 +82,7 @@ include "conexion.php";
                                     <td>
                                     <button class="btn btn-sm btn-success btn-editar-proveedor"  data-bs-toggle="modal" data-bs-target="#editar_proveedor"
                                     data-id='<?php echo $data["idproveedor"]?>' >Editar</button>
-                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#eliminar_proveedor" 
+                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#modal_delete" 
                                     data-id='<?php echo $data["idproveedor"]?>' data-proveedor='<?php echo $data["proveedor"]?>' data-nombre='<?php echo $data["contacto"]?>'
                                     data-dni='<?php echo $data["DNI"]?>'>Eliminar</button>
                                     </td>
@@ -147,7 +147,7 @@ include "conexion.php";
     </div>
 
     <!-- Modal para eliminar -->
-    <div class="modal fade" id="eliminar_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal_delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -164,7 +164,7 @@ include "conexion.php";
                     
                         <div class="mb-2 text-center">
                             <button  class="btn btn-secondary" href="#" data-bs-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-danger" href="#" >Eliminar</button>
+                            <button class="btn btn-danger" id="btnEliminarRegistro" href="#" >Eliminar</button>
                         </div>
                 </div>
             </div>
@@ -209,11 +209,11 @@ include "conexion.php";
                 $('#registroProveedor').text('Proveedor: ' + proveedor);
                 $('#registroNombre').text('Nombre: ' + nombre);
                 $('#registroDNI').text('DNI: ' + dni);
-                $('#eliminar_proveedor').modal('show');
+                $('#modal_delete').modal('show');
 
-                $('#eliminar_proveedor').click(function() {
+                $('#btnEliminarRegistro').click(function() {
                     $.ajax({
-                        url: 'controler/Clientescontrol.php?op=eliminar_proveedor',
+                        url: 'controler/Proveedorescontrol.php?op=eliminar_proveedor',
                         type: 'POST',
                         data: {
                             id: id

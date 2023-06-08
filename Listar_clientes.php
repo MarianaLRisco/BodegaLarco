@@ -92,7 +92,7 @@ include "conexion.php";
                                 ?>
                             </tbody>
                         </table>
-                        <a class="btn btn-primary" href="Registrar_Usuarios.php" role="button">Crear Cliente</a>
+                        <a class="btn btn-primary" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
                     </div>
                 </section>
             </div>
@@ -134,7 +134,7 @@ include "conexion.php";
                         </div>
                         <div class="mb-2 text-center">
                             <button class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-primary btnGuardar" href="#" onclick="ActualizarClientes();">Guardar</button>
+                            <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarClientes();">Guardar</button>
 
                         </div>
                     </form>

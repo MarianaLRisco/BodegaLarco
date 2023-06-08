@@ -27,6 +27,10 @@ class Proveedor{
         $sentencia = "UPDATE proveedor set proveedor='$proveedor',contacto='$contacto',DNI='$dni',telefono='$telefono',direccion='$direccion' where idproveedor='$id'";
         $this->Ejecutar($sentencia,1);
     }
+    function EliminarProveedor($id){
+        $sentencia = "UPDATE proveedor SET estado_P=0 WHERE idproveedor='$id';";
+        $this->Ejecutar($sentencia,1);
+    }
         
     
 

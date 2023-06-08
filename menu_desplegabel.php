@@ -9,11 +9,10 @@
                         </a>
                         <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="Registrar_Usuarios.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Nuevo Usuario</span></a>
+                                <a href="Registrar_Usuarios.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar Usuario</span></a>
                             </li>
                             <li>
-                                <a href="Listar_usuarios.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registro
-                                        Usuarios</span></a>
+                                <a href="Listar_usuarios.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Usuarios</span></a>
                             </li>
                         </ul>
                     </li>
@@ -23,10 +22,10 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="Registrar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Nuevo Cliente</span></a>
+                                <a href="Registrar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar Cliente</span></a>
                             </li>
                             <li>
-                                <a href="Listar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registro Clientes</span>
+                                <a href="Listar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Clientes</span>
                                 </a>
                             </li>
                         </ul>
@@ -38,12 +37,11 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="Registrar_proveedores.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Nuevo
+                                <a href="Registrar_proveedores.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar
                                         Proveedor</span></a>
                             </li>
                             <li>
-                                <a href="Listar_proveedores.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registro
-                                        Proveedores</span></a>
+                                <a href="Listar_proveedores.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Proveedores</span></a>
                             </li>
                         </ul>
                     </li>
@@ -53,12 +51,11 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="Registrar_productos.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Nuevo
+                                <a href="Registrar_productos.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar
                                         Producto</span></a>
                             </li>
                             <li>
-                                <a href="Listar_productos.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registro
-                                        Productos</span></a>
+                                <a href="Listar_productos.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Productos</span></a>
                             </li>
                         </ul>
                     </li>
@@ -68,11 +65,10 @@
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="Registrar_ventas.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Nueva Venta</span></a>
+                                <a href="Registrar_ventas.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar Venta</span></a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Registro
-                                        Ventas</span></a>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Ventas</span></a>
                             </li>
                         </ul>
                     </li>

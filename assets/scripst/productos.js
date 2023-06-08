@@ -1,9 +1,10 @@
 init();
+var tabla;
 function init() {
   getData();
 }
 function getData() {
-  $("#productos").DataTable({
+  tabla=$("#productos").DataTable({
     oLanguage: {
       sProcessing: "Procesando...",
       sLengthMenu: "Mostrar _MENU_ registros",
@@ -30,3 +31,40 @@ function getData() {
     },
   });
 }
+
+function ActualizarProducto(){
+  id=$('#id').val();
+  nombre=$('#nombre').val();
+  categoria=$('#categoria').val();
+  proveedor=$('#proveedor').val();
+  precio=$('#precio').val();
+  cantidad=$('#cantidad').val();
+  parametros = {
+    "id":id,"nombre":nombre,"categoria":categoria,
+    "proveedor":proveedor,"precio":precio,"cantidad":cantidad
+  }
+  $.ajax({
+    
+    url:"controler/Productoscontrol.php?op=EditarProducto",
+    type:'POST',
+    data:parametros,
+    beforeSend:function(){},
+    success:function(response){
+        location.reload();
+      var mensaje = "Los datos se han actualizado correctamente.";
+      mostrarMensaje(mensaje);
+    },
+    error: function() {
+      tabla.ajax.reload();
+      // Mostrar un mensaje de error si la solicitud AJAX falla
+      var mensaje = "Se produjo un error al actualizar los datos.";
+      mostrarMensaje(mensaje);
+    }
+  });
+
+function mostrarMensaje(mensaje) {
+  var mensajeElemento = $('#mensaje-actualizacion');
+  mensajeElemento.text(mensaje);
+  mensajeElemento.show();
+}
+  }
