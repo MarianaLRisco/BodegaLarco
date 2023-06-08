@@ -1,3 +1,37 @@
+<?php
+  $alert ='';
+
+  if (!empty($_POST)) {
+    if (empty($_POST['clave'])||empty($_POST['usuario'])) {
+      $alert="ingrese sus datos.";
+    } else {
+      require 'conexion.php';
+      $user = $_POST['usuario'];
+      $pass = $_POST['clave'];
+
+      $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario='$user' and clave='$pass' ");
+      $resul = mysqli_num_rows($query);
+
+      if($resul >0){
+        $data = mysqli_fetch_array($query);
+        session_start();
+        $_SESSION['active']= true;
+        $_SESSION['iduser']=$data['idusuario'];
+        $_SESSION['nombre']=$data['nombre'];
+        $_SESSION['apellido']=$data['Apellido'];
+        $_SESSION['email']=$data['email'];
+        $_SESSION['user']=$data['usuario'];
+        $_SESSION['rol']=$data['rol'];
+
+        header('location: bodegalarco/inicio.php');
+      }
+    }
+    
+  }
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,7 +40,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/style.css?585">
     <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- icons -->
@@ -19,15 +53,15 @@
   <body>
     <section class="login-content">
       <div class="login-box">
-        <form class="login-form" action="index.php">
+        <form class="login-form" action="" method="post">
           <h3 class="login-head"><ion-icon size="large" name="person-sharp"></ion-icon> Inicia Sesión</h3>
           <div class="mb-3">
             <label class="font-text">Usuario</label>
-            <input class="form-control form-control-lg" type="text" name="usuario" placeholder="Ingrese su correo" autofocus>
+            <input class="form-control form-control-lg" type="text" name="usuario" id="usuario" placeholder="Ingrese su correo" autofocus>
           </div>
           <div class="mb-3">
             <label class="font-text">Contraseña</label>
-            <input class="form-control form-control-lg" type="password" name="clave" placeholder="Ingrese su contraseña">
+            <input class="form-control form-control-lg" type="password" name="clave" placeholder="Ingrese su contraseña" id="clave">
           </div>
           <div class="row mb-3">
             <div class="col-md-7 utility">
@@ -41,9 +75,9 @@
             <div class="col-md-5 mb-2">
               <a href="#"  class="text-forgot" data-toggle="flip">Olvidé mi contraseña?</a>
             </div>        
-          </div>  
+          </div> 
           <div class="mb-3 btn-container">
-            <a class="btn btn-primary d-block " href="inicio.php">Iniciar Sesión</a>
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</a>
           </div>
         </form>
         <form class="forget-form" action="index.php">
@@ -51,6 +85,9 @@
           <div class="mb-3">
             <label class="font-text">Email</label>
             <input class="form-control form-control-lg" type="text" placeholder="Ingrese su Email">
+          </div>
+          <div class="mb-3 btn-container alert alert-warning alert-dismissible fade show" role="alert">
+           <?php echo isset($alert) ? $alert : ''; ?>
           </div>
           <div class="mb-3 btn-container">
             <button class="btn btn-primary d-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Enviar</button>

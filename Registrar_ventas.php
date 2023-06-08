@@ -68,6 +68,9 @@ if (!empty($_POST)) {
         .size {
             width: 70px;
         }
+        #btn_agregar{
+            display: none;
+        }
     </style>
 
 </head>
@@ -145,11 +148,13 @@ if (!empty($_POST)) {
                                         </td>
                                         <td id="existencias">--</td>
                                         <td>
-                                            <div class="col-sm-6"><input class="form-control form-control-sm text-end" type="text" name="cantidad" id="cantidad" value="0" min="1"></div>
+                                            <div class="col-sm-6">
+                                            <input class="form-control form-control-sm text-end" type="text" 
+                                            name="cantidad" id="cantidad" value="0" min="1" disabled></div>
                                         </td>
                                         <td id="precio" class="text-end">0.00</td>
-                                        <td id="precio_totla" class="text-end">0.00</td>
-                                        <td><a class="btn btn-primary" href="#" role="button">Agregar</a></td>
+                                        <td id="precio_total" class="text-end">0.00</td>
+                                        <td><a class="btn btn-primary" href="#" role="button" id='btn_agregar'>Agregar</a></td>
                                     </tr>
                                     <tr>
                                         <th>Codigo</th>
@@ -201,6 +206,7 @@ if (!empty($_POST)) {
 <script src="js/menu.js?7796"></script>
 <script >
         $(document).ready(function () {
+        //buscar cliente
         $("#dni").keyup(function (e) {
             e.preventDefault();
             var cl = $(this).val();
@@ -232,6 +238,56 @@ if (!empty($_POST)) {
             error: function () {},
             });
         });
-        //buscar cliente
+        //buscar nombre
+        $("#nombre_p").keyup(function (e) {
+            e.preventDefault();
+            var pd = $(this).val();
+            parametros = {
+            'nombre': pd,
+            };
+            $.ajax({
+            data: parametros,
+            url: "controler/Productoscontrol.php?op=BuscarProductoNombre",
+            type: "POST",
+            async: true,
+            success: function (response) {
+                console.log(response);
+                if(response==0){
+                    $('#idproducto').html('--');
+                    $('#existencias').html('--');
+                    $('#precio').html('');
+                   
+                }else{
+                    var data = $.parseJSON(response);
+
+                    $('#idproducto').html(data.idproducto);
+                    $('#existencias').html(data.cantidad);
+                    $('#cantidad').val('1');
+                    $('#precio').html(data.precio);
+                    $('#precio_total').html(data.precio);
+
+                    $('#cantidad').removeAttr('disabled');
+                    $('#btn_agregar').slideDown();
+                   
+                }
+                
+            },
+            error: function () {},
+            });
+        });
+
+        $('#cantidad').keyup(function(e){
+            e.preventDefault();
+            var precio_total= $(this).val() * $('#precio').html();
+            
+
+            if($(this).val()<1 || isNaN($(this).val()) || $(this).val()>$('#existencias').html()){
+                $('#precio_total').html('--');
+                $('#btn_agregar').slideUp();
+            }else{
+                $('#precio_total').html(precio_total);
+                $('#btn_agregar').slideDown();
+            }
+        });
         });
 </script>
