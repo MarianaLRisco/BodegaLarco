@@ -149,19 +149,19 @@ include "conexion.php";
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar registro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar_e">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     
-                    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                    <p id="pregunta">¿Estás seguro de que deseas eliminar este registro?</p>
                     <p id="registroNombre"></p>
                     <p id="registroApellido"></p>
                     <p id="registroDNI"></p>
                 </div>
                 <div class="modal-footer">
-                    <button  class="btn btn-primary" data-bs-dismiss="modal">Cancelar</button>
+                    <button  class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
                     <button  class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
                 </div>
             </div>
@@ -217,8 +217,24 @@ include "conexion.php";
                             id: id
                         },
                         success: function(response) {
-                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
-                            location.reload(); // Recarga la página después de eliminar el registro
+                            if(response==1){
+                                $('#registroNombre').text('');
+                                $('#registroApellido').text('');
+                                $('#registroDNI').text('');
+                                $('#salir_e').html('Salir');
+                                $('#pregunta').text('El cliente se ha eliminado corectamente.');
+                                boton.hide();
+                                $('#salir_e, #cerrar_e').click(function(){
+                                    $('button[data-id="' + id + '"]').closest('tr').remove();
+                                })
+                            }else{
+                                $('#registroNombre').text('');
+                                $('#registroApellido').text('');
+                                $('#registroDNI').text('');
+                                $('#salir_e').html('Salir');
+                                $('#pregunta').text('El cliente no se ha eliminado.');
+                                boton.hide();
+                            }
                         }
                     });
                 });

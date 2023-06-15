@@ -193,18 +193,18 @@ include "conexion.php";
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirmar eliminación</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar_e">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                <div class="mb-2 text-center">
+                    <p id='pregunta'>¿Estás seguro de que deseas eliminar este registro?</p>
                     <p id="deleteData_1"></p>
                     <p id="deleteData_2"></p>
                     <p id="deleteData_3"></p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">cancelar</button>
+                <div class="mb-2 text-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">cancelar</button>
                     <button class="btn btn-danger" id="btnConfirmDelete">Eliminar</button>
                 </div>
             </div>
@@ -267,7 +267,7 @@ include "conexion.php";
             // Capturar evento de clic del botón de confirmación de eliminación
             $('#btnConfirmDelete').click(function() {
                 var id = $(this).data('id'); // Obtener el ID del registro a eliminar
-
+                var boton = $(this); 
                 // Enviar solicitud AJAX al servidor para eliminar el registro
                 $.ajax({
                     url: 'controler/Usuarioscontrol.php?op=eliminar_usuario', // Ruta a tu script PHP para eliminar el registro
@@ -276,13 +276,25 @@ include "conexion.php";
                         id: id
                     }, // Enviar el ID del registro al servidor
                     success: function(response) {
-                        // Eliminar la fila correspondiente de la tabla en tiempo real
-                        $('button[data-id="' + id + '"]').closest('tr').remove();
-                        $('#deleteModal').modal('hide'); // Ocultar el modal de confirmación
-                    },
-                    error: function(xhr, status, error) {
-                        // Manejar el error de eliminación si es necesario
-                        console.log(error);
+                        
+                        if(response==1){
+                            $('#deleteData_1').text('');
+                            $('#deleteData_2').text('');
+                            $('#deleteData_3').text('');
+                            $('#pregunta').text('Usuario eliminado exitozamente.')
+                            $('#salir_e').html('Cerrar');
+                            boton.hide();
+                            $('#salir_e, #cerrar_e').click(function(){
+                                $('button[data-id="' + id + '"]').closest('tr').remove();
+                            });
+                        }else{
+                            $('#deleteData_1').text('');
+                            $('#deleteData_2').text('');
+                            $('#deleteData_3').text('');
+                            boton.hide();
+                            $('#pregunta').text('El Usuario no se puedo eliminar.')
+                        }
+                        
                     }
                 });
             });

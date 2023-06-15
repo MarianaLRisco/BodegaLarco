@@ -152,18 +152,18 @@ include "conexion.php";
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Eliminar Proveedor</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id='cerrar_e'></button>
                 </div>
                 <div class="modal-body">
                         <div class="mb-2 text-center">
-                        <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                        <p id='pregunta'>¿Estás seguro de que deseas eliminar este registro?</p>
                         <p id="registroProveedor"></p>
                         <p id="registroNombre"></p>
                         <p id="registroDNI"></p>
                         </div>
                     
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-secondary" href="#" data-bs-dismiss="modal">cancelar</button>
+                            <button  class="btn btn-primary" href="#" data-bs-dismiss="modal" id='salir_e'>cancelar</button>
                             <button class="btn btn-danger" id="btnEliminarRegistro" href="#" >Eliminar</button>
                         </div>
                 </div>
@@ -212,6 +212,7 @@ include "conexion.php";
                 $('#modal_delete').modal('show');
 
                 $('#btnEliminarRegistro').click(function() {
+                    var boton = $(this); 
                     $.ajax({
                         url: 'controler/Proveedorescontrol.php?op=eliminar_proveedor',
                         type: 'POST',
@@ -219,8 +220,23 @@ include "conexion.php";
                             id: id
                         },
                         success: function(response) {
-                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
-                            location.reload(); // Recarga la página después de eliminar el registro
+                            if(response==1){
+                            $('#registroProveedor').text('');
+                            $('#registroNombre').text('');
+                            $('#registroDNI').text('');
+                             $('#pregunta').text('El Proveedor se ha eliminado corectamente.');
+                            boton.hide();
+                            $('#salir_e').html('Cerrar');
+                            $('#salir_e, #cerrar_e').click(function(){
+                                $('button[data-id="' + id + '"]').closest('tr').remove();
+                                })
+                            }else{
+                                $('#registroProveedor').text('');
+                                $('#registroNombre').text('');
+                                $('#registroDNI').text('');
+                                $('#pregunta').text('El Proveedor no se ha podido eliminar.');
+                                boton.hide();  
+                            }
                         }
                     });
                 });

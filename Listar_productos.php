@@ -82,7 +82,8 @@ include "conexion.php";
                                             <td>
                                                 <button class="btn btn-sm btn-warning btnAgregar" data-bs-toggle="modal" data-bs-target="#agregar_producto"
                                                 data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>'
-                                                data-proveedor='<?php echo $data["proveedor"] ?>'>Agregar</button>
+                                                data-proveedor='<?php echo $data["proveedor"] ?>' data-precio='<?php echo $data["precio"] ?>'>Agregar</button>
+                                                
                                                 <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" 
                                                 data-id='<?php echo $data["idproducto"] ?>'>Editar</button>
                                                 <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#myModal" 
@@ -186,20 +187,21 @@ include "conexion.php";
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Eliminar producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar_e"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-2 text-center">
 
-                        <p>¿Estás seguro de que deseas eliminar este registro?</p>
+                        <p id='pregunta'>¿Estás seguro de que deseas eliminar este registro?</p>
                         <p id="registroNombre"></p>
                         <p id="registroExistencia"></p>
                         <p id="registroProveedor"></p>
                         <p id="registroCategoria"></p>
+
                     </div>
                     <div class="mb-2 text-center">
-                        <button class="btn btn-primary" href="#" data-bs-dismiss="modal">cancelar</button>
-                        <button type="submit" class="btn btn-danger" id="btnEliminarRegistro" href="#">Eliminar</button>
+                        <button class="btn btn-primary" data-bs-dismiss="modal" id='salir_e'>cancelar</button>
+                        <button class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -208,34 +210,33 @@ include "conexion.php";
     
     <!-- Modal para agregar productos -->
     <div class="modal fade" id="agregar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Agregar Productos</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <div class="mb-2 text-center">
-                            <p>¿Estás seguro de que deseas eliminar este registro?</p>
-                            <p id="registroNombre"></p>
-                            <p id="registroProducto"></p>
+                    <div class="mb-2 text-center"> 
+                            
                     </div>
                     <form>
-                        <input type="hidden" id="id" name="id">
+                        <p id="Nombre_agregar" class="text-center fw-bold fs-5"></p>
+                        <input type="hidden" id="id_1" name="id_1">
                         
                         <div class="mb-2">
-                            <label for="precio">Precio</label>
-                            <input type="text" class="form-control" name="precio" id="precio">
+                            <label for="precio_agregar">Precio</label>
+                            <input type="text" class="form-control" name="precio_agregar" id="precio_agregar">
                         </div>
                         <div class="mb-2">
-                            <label for="cantidad">existencias</label>
-                            <input type="text" class="form-control" name="cantidad" id="cantidad">
+                            <label for="cantidad_agregar">existencias</label>
+                            <input type="text" class="form-control" name="cantidad_agregar" id="cantidad_agregar">
                         </div>
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
                             <button class="btn btn-danger" data-dismiss="modal">cancelar</button>
-                            <button class="btn btn-primary" href="#" onclick="">Guardar</button>
+                            <button class="btn btn-primary" href="#" id="btn_agregar_producto">agregar</button>
 
                         </div>
                     </form>
@@ -258,6 +259,7 @@ include "conexion.php";
         $(document).on('click', '.btn-editar-productos', function() {
             // Obtiene los valores de los campos de la fila correspondiente
             var id = $(this).data('id');
+            
             var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
             var columna2 = $(this).closest('tr').find('td:eq(2)').text().trim();
             var columna3 = $(this).closest('tr').find('td:eq(3)').text().trim();
@@ -278,36 +280,38 @@ include "conexion.php";
             }).prop('selected', true);
         });
 
-        $(document).ready( function() {
-            // Obtiene los valores de los campos de la fila correspondiente
+        
+
+
+        $(document).ready(function() {
             $('.btnAgregar').click(function() {
+                
                 var id = $(this).data('id');
-                var proveedor = $(this).data('proveedor');
-                var nombre = $(this).data('nombre');
+                var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();           
+                var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
+                
+                
+                $('#Nombre_agregar').text('Producto: ' + columna1 +' '+ columna4);
+                
+                $('#id_1').val(id);
 
-                $('#registroNombre').text('Nombre: ' + nombre);
-                $('#registroProveedor').text('Proveedor: ' + proveedor);
-                $('#agregar_producto').modal('show');
-
-                $('#btnEliminarRegistro').click(function() {
+                $('#btn_agregar_producto').click(function(e){
+                    e.preventDefault();
+                    id=$('#id_1').val();
+                    cantidad=$('#cantidad_agregar').val();
+                    precio=$('#precio_agregar').val();
+                    parametros = { "id":id,"n_cantidad":cantidad,"n_precio":precio}
                     $.ajax({
-                        url: 'controler/Productoscontrol.php?op=eliminar_producto',
+                        url: 'controler/Productoscontrol.php?op=agregar_producto',
                         type: 'POST',
-                        data: {
-                            id: id
-                        },
+                        data: parametros,
                         success: function(response) {
-                            // Realiza acciones adicionales después de eliminar el registro, si es necesario
-                            location.reload(); // Recarga la página después de eliminar el registro
+                            
                         }
                     });
                 });
             });
-        });
-
-        
-
-        $(document).ready(function() {
+            
             $('.btnEliminar').click(function() {
                 var id = $(this).data('id');
                 var proveedor = $(this).data('proveedor');
@@ -321,16 +325,39 @@ include "conexion.php";
                 $('#registroCategoria').text('Categoria: ' + categoria);
                 $('#eliminar_producto').modal('show');
 
-                $('#btnEliminarRegistro').click(function() {
+                $('#btnEliminarRegistro').click(function(e) {
+                    e.preventDefault();
+                    var boton = $(this); 
                     $.ajax({
                         url: 'controler/Productoscontrol.php?op=eliminar_producto',
                         type: 'POST',
                         data: {
-                            id: id
+                            'id': id
                         },
                         success: function(response) {
+
+                            if(response==1){
+                               // $('#pregunta').setAttribute('disabled');
+                                $('#registroNombre').text('');
+                                $('#registroExistencia').text('');
+                                $('#registroProveedor').text('');
+                                $('#registroCategoria').text('');
+                                $('#salir_e').html('Salir');
+                                $('#pregunta').text('El Producto se ha eliminado corectamente.');
+                                boton.hide();
+                                $('#salir_e, #cerrar_e').click(function(){
+                                    $('button[data-id="' + id + '"]').closest('tr').remove();
+                                })
+                            }else{
+                                $('#registroNombre').text('');
+                                $('#registroExistencia').text('');
+                                $('#registroProveedor').text('');
+                                $('#registroCategoria').text('');
+                                $('#pregunta').text('El Producto no se ha podido eliminado.');
+                                boton.hide();
+                            }
                             // Realiza acciones adicionales después de eliminar el registro, si es necesario
-                            location.reload(); // Recarga la página después de eliminar el registro
+                             // Recarga la página después de eliminar el registro
                         }
                     });
                 });

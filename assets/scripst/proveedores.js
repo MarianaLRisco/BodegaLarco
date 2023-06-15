@@ -71,3 +71,7 @@ function mostrarMensaje(mensaje) {
 }
   }
 
+function recargar_tabla(){
+  tabla.ajax.reload();
+}
+
