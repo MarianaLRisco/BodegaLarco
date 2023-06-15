@@ -63,6 +63,9 @@
             <label class="font-text">Contraseña</label>
             <input class="form-control form-control-lg" type="password" name="clave" placeholder="Ingrese su contraseña" id="clave">
           </div>
+          <div class="mb-3 btn-container alert alert-warning alert-dismissible fade show" role="alert">
+           <?php echo isset($alert) ? $alert : ''; ?>
+          </div>
           <div class="row mb-3">
             <div class="col-md-7 utility">
               <div class="form-check">
@@ -86,9 +89,7 @@
             <label class="font-text">Email</label>
             <input class="form-control form-control-lg" type="text" placeholder="Ingrese su Email">
           </div>
-          <div class="mb-3 btn-container alert alert-warning alert-dismissible fade show" role="alert">
-           <?php echo isset($alert) ? $alert : ''; ?>
-          </div>
+          
           <div class="mb-3 btn-container">
             <button class="btn btn-primary d-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Enviar</button>
           </div>
