@@ -3,7 +3,6 @@
                             <ion-icon name="home"></ion-icon><span class="ms-1 d-none d-sm-inline">Inicio</span>
                         </a>
                     </li>
-                    <?php if ($_SESSION['rol']==1): ?>
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa-solid fa-circle-user"></i><span class="ms-1 d-none d-sm-inline">Usuarios</span>
@@ -18,7 +17,6 @@
                         </ul>
                     </li>
                     <li>
-                    <?php endif; ?>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                             <i class="fa-solid fa-user-group"></i><span class="ms-1 d-none d-sm-inline">Clientes</span>
                         </a>

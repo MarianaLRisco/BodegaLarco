@@ -1,7 +1,7 @@
 <?php
      
     include "conexion.php";
-    session_start();
+    
     if(!empty($_POST)){
         $aler='';
         if(empty($_POST['proveedor'])||empty($_POST['contacto'])||empty($_POST['telefono'])||empty($_POST['direccion'])||empty($_POST['dni'])

@@ -1,6 +1,5 @@
 <?php
 include "conexion.php";
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@ session_start();
 </head>
 
 <body>
-    <?php require "header.php"; ?>
+    <?php require "header.php";?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
@@ -36,92 +35,95 @@ session_start();
 
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
+                    <?php require "menu_desplegabel.php";?>
                 </ul>
-
+                
             </div>
             <div class="col-10 flex-shrink-0 ">
                 <section>
+
                     <div class="container-lg ">
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h1 clas="d-inline-block align-text-top h3">Lista de Clientes</h1>
+                                    <h1 clas="d-inline-block align-text-top h3">Lista de Proveedores</h1>
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-success table-striped" id="lista_clientes">
+                        <table class="table table-success table-striped" id="proveedores">
                             <thead width='90%'>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Proveedor</th>
+                                    <th scope="col">Contacto</th>
                                     <th scope="col">DNI</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
                                     <th scope="col">Telefono</th>
                                     <th scope="col">Direccion</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $query = mysqli_query($conection, "SELECT * FROM cliente where estado_c=1 ORDER BY idcliente");
+                            <?php
+                                $query = mysqli_query($conection,"SELECT * FROM proveedor where estado_p=1 ORDER BY idproveedor");
                                 $resul = mysqli_num_rows($query);
-                                if ($resul > 0) {
-                                    while ($data = mysqli_fetch_array($query)) {
-                                        $id = $data["idcliente"];
+                                if($resul >0){
+                                    while($data = mysqli_fetch_array($query)){
+                                    $id = $data["idproveedor"];
+                  
+                            ?>
+                            
+                                <tr>
+                                    <td><?php echo $data["idproveedor"]?></td>
+                                    <td><?php echo $data["proveedor"]?></td>
+                                    <td><?php echo $data["contacto"]?></td>
+                                    <td><?php echo $data["DNI"]?></td>
+                                    <td><?php echo $data["telefono"]?></td>
+                                    <td><?php echo $data["direccion"]?></td>
+                                    <td>
+                                    <button class="btn btn-sm btn-success btn-editar-proveedor"  data-bs-toggle="modal" data-bs-target="#editar_proveedor"
+                                    data-id='<?php echo $data["idproveedor"]?>' >Editar</button>
+                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#modal_delete" 
+                                    data-id='<?php echo $data["idproveedor"]?>' data-proveedor='<?php echo $data["proveedor"]?>' data-nombre='<?php echo $data["contacto"]?>'
+                                    data-dni='<?php echo $data["DNI"]?>'>Eliminar</button>
+                                    </td>
+                                    
 
-                                ?>
-
-                                        <tr>
-                                            <td><?php echo $data["idcliente"] ?></td>
-                                            <td><?php echo $data["DNI"] ?></td>
-                                            <td><?php echo $data["nombre"] ?></td>
-                                            <td><?php echo $data["apellido"] ?></td>
-                                            <td><?php echo $data["telefono"] ?></td>
-                                            <td><?php echo $data["direccion"] ?></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-success btn-editar-cliente" data-bs-toggle="modal" data-bs-target="#editar_cliente" data-id="<?php echo $data["idcliente"] ?>">Editar</button>
-                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                                data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>" >Eliminar</button>
-                                            </td>
-
-
-                                        </tr>
-                                <?php
-                                    }
-                                }
-                                ?>
+                                </tr>
+                            <?php
+                             }
+                            }
+                            ?>
                             </tbody>
                         </table>
-                        <a class="btn btn-primary" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
+                        <a class="btn btn-primary" href="#" role="button">Registrar Proveedor</a>
                     </div>
                 </section>
             </div>
         </div>
     </div>
 
-    <!--Modal para editar -->
-    <div class="modal fade" id="editar_cliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--Modal para editar-->
+    <div class="modal fade" id="editar_proveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Editar Cliente</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Proveedor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input type="hidden" id="id" name="id">
+                        <input  type='hidden' id="id" name="id">
+                        <div class="mb-2">
+                            <label for="proveedor">Proveedor</label>
+                            <input type="text" class="form-control" name="proveedor" id="proveedor">
+                        </div>
+                        <div class="mb-2">
+                            <label for="contacto">Contacto</label>
+                            <input type="text" class="form-control" name="contacto" id="contacto">
+                        </div>
                         <div class="mb-2">
                             <label for="dni">DNI</label>
                             <input type="text" class="form-control" name="dni" id="dni">
-                        </div>
-                        <div class="mb-2">
-                            <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre">
-                        </div>
-                        <div class="mb-2">
-                            <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" name="apellido" id="apellido">
                         </div>
                         <div class="mb-2">
                             <label for="telefono">Telefono</label>
@@ -134,8 +136,8 @@ session_start();
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button class="btn btn-danger" data-bs-dismiss="modal">cancelar</button>
-                            <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarClientes();">Guardar</button>
+                            <button  class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarProveedor()">Guardar</button>
 
                         </div>
                     </form>
@@ -145,30 +147,31 @@ session_start();
     </div>
 
     <!-- Modal para eliminar -->
-    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modal_delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Eliminar registro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="cerrar_e">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Eliminar Proveedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id='cerrar_e'></button>
                 </div>
                 <div class="modal-body">
+                        <div class="mb-2 text-center">
+                        <p id='pregunta'>¿Estás seguro de que deseas eliminar este registro?</p>
+                        <p id="registroProveedor"></p>
+                        <p id="registroNombre"></p>
+                        <p id="registroDNI"></p>
+                        </div>
                     
-                    <p id="pregunta">¿Estás seguro de que deseas eliminar este registro?</p>
-                    <p id="registroNombre"></p>
-                    <p id="registroApellido"></p>
-                    <p id="registroDNI"></p>
-                </div>
-                <div class="modal-footer">
-                    <button  class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
-                    <button  class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
+                        <div class="mb-2 text-center">
+                            <button  class="btn btn-primary" href="#" data-bs-dismiss="modal" id='salir_e'>cancelar</button>
+                            <button class="btn btn-danger" id="btnEliminarRegistro" href="#" >Eliminar</button>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Essential javascripts for application to work-->
+
+    <!--Essential javascripts for application to work-->
     <!-- Essential javascripts for application to work-->
     <script src="js/getdate.js?869"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -176,10 +179,10 @@ session_start();
     <script src="assets/libs/jquery-3.7.0.min.js"></script>
     <script src="assets/plugins/DataTables/datatables.min.js"></script>
     <script src="assets/plugins/DataTables/DataTables-1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <script src="assets/scripst/clientes.js"></script>
+    <script src="assets/scripst/proveedores.js"></script>
     <script>
         // Captura el evento clic del botón "Editar" en la tabla
-        $(document).on('click', '.btn-editar-cliente', function() {
+        $(document).on('click', '.btn-editar-proveedor', function() {
             // Obtiene los valores de los campos de la fila correspondiente
             var id = $(this).data('id');
             var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
@@ -190,58 +193,55 @@ session_start();
 
             // Actualiza los valores en el modal
             $('#id').val(id);
-            $('#dni').val(columna1);
-            $('#nombre').val(columna2);
-            $('#apellido').val(columna3);
+            $('#proveedor').val(columna1);
+            $('#contacto').val(columna2);
+            $('#dni').val(columna3);
             $('#telefono').val(columna4);
             $('#direccion').val(columna5);
-
         });
-
 
         $(document).ready(function() {
             $('.btnEliminar').click(function() {
                 var id = $(this).data('id');
+                var proveedor = $(this).data('proveedor');
                 var nombre = $(this).data('nombre');
-                var apellido = $(this).data('apellido');
                 var dni = $(this).data('dni');
+                $('#registroProveedor').text('Proveedor: ' + proveedor);
                 $('#registroNombre').text('Nombre: ' + nombre);
-                $('#registroApellido').text('Apellido: ' + apellido);
                 $('#registroDNI').text('DNI: ' + dni);
-                $('#myModal').modal('show');
+                $('#modal_delete').modal('show');
 
                 $('#btnEliminarRegistro').click(function() {
+                    var boton = $(this); 
                     $.ajax({
-                        url: 'controler/Clientescontrol.php?op=eliminar_cliente',
+                        url: 'controler/Proveedorescontrol.php?op=eliminar_proveedor',
                         type: 'POST',
                         data: {
                             id: id
                         },
                         success: function(response) {
                             if(response==1){
-                                $('#registroNombre').text('');
-                                $('#registroApellido').text('');
-                                $('#registroDNI').text('');
-                                $('#salir_e').html('Salir');
-                                $('#pregunta').text('El cliente se ha eliminado corectamente.');
-                                boton.hide();
-                                $('#salir_e, #cerrar_e').click(function(){
-                                    $('button[data-id="' + id + '"]').closest('tr').remove();
+                            $('#registroProveedor').text('');
+                            $('#registroNombre').text('');
+                            $('#registroDNI').text('');
+                             $('#pregunta').text('El Proveedor se ha eliminado corectamente.');
+                            boton.hide();
+                            $('#salir_e').html('Cerrar');
+                            $('#salir_e, #cerrar_e').click(function(){
+                                $('button[data-id="' + id + '"]').closest('tr').remove();
                                 })
                             }else{
+                                $('#registroProveedor').text('');
                                 $('#registroNombre').text('');
-                                $('#registroApellido').text('');
                                 $('#registroDNI').text('');
-                                $('#salir_e').html('Salir');
-                                $('#pregunta').text('El cliente no se ha eliminado.');
-                                boton.hide();
+                                $('#pregunta').text('El Proveedor no se ha podido eliminar.');
+                                boton.hide();  
                             }
                         }
                     });
                 });
             });
         });
-    </script>
-    </script>
 
+        </script>
 </body>

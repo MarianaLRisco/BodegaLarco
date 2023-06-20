@@ -1,6 +1,5 @@
 <?php
-    include "conexion.php";
-    session_start(); 
+    include "conexion.php"; 
 
 ?>
 
@@ -74,10 +73,13 @@
                     <a href="#" class="d-flex dropdown-toggle align-items-center text-white text-decoration-none" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user menu"></i> <span class="ms-1 d-none d-sm-inline"></span> 
                     </a>
-                    <ul class="dropdown-menu  text-small ">
+                    <ul class="dropdown-menu  text-small shadow">
                         <li><a class="item dropdown-item " href="#">Configuración</a></li>
                         <li><a class="item dropdown-item " href="#">Perfil</a></li>
-                        <li><a class="item botton" href="salir.php">Cerrar Sesion</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="item dropdown-item" href="#">Cerrar Sesion</a></li>
                     </ul>
                 </div>
                 
@@ -89,9 +91,8 @@
         <div class="row flex-nowrap">
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
                 <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2 order-1">
-                    <p class='text-light text-center order-2'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['apellido'] ?></p>
-                    
+                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
+    
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <?php require "menu_desplegabel.php";?>

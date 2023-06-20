@@ -1,7 +1,7 @@
 <?php
      
     include "conexion.php";
-    
+    session_start();
     if(!empty($_POST)){
         $aler='';
         if(empty($_POST['nombre'])||empty($_POST['apellido'])||empty($_POST['usuario'])||empty($_POST['correo'])||

@@ -1,6 +1,5 @@
 <?php
 include "conexion.php";
-session_start();
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +59,7 @@ session_start();
                                     <th scope="col">Apellido</th>
                                     <th scope="col">Correo</th>
                                     <th scope="col">Usuario</th>
+                                    <th scope="col">Clave</th>
                                     <th scope="col">Rol</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
@@ -90,6 +90,9 @@ session_start();
                                             </td>
                                             <td>
                                                 <?php echo $data["usuario"] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $data["clave"] ?>
                                             </td>
                                             <td>
                                                 <?php echo $data["rol"] ?>
@@ -145,7 +148,10 @@ session_start();
                             <label for="nombre">Usuario</label>
                             <input type="text" class="form-control" name="usuario" id="usuario">
                         </div>
-                        
+                        <div class="mb-2">
+                            <label for="nombre">Contraseña</label>
+                            <input type="text" class="form-control" name="clave" id="clave">
+                        </div>
                         <div class="mb-2">
                             <label for="nombre">Rol</label>
                             <?php
@@ -226,7 +232,7 @@ session_start();
             var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
             var columna5 = $(this).closest('tr').find('td:eq(5)').text().trim();
             var columna6 = $(this).closest('tr').find('td:eq(6)').text().trim();
-            
+            var columna7 = $(this).closest('tr').find('td:eq(7)').text().trim();
 
             // Actualiza los valores en el modal
             $('#id').val(id);
@@ -235,8 +241,9 @@ session_start();
             $('#apellido').val(columna3);
             $('#correo').val(columna4);
             $('#usuario').val(columna5);
+            $('#clave').val(columna6);
             $('#rol option').filter(function() {
-                return $(this).text() === columna6;
+                return $(this).text() === columna7;
             }).prop('selected', true);
         });
 
