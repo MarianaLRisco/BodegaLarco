@@ -30,16 +30,7 @@ session_start();
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
-                </ul>
-
-            </div>
+            <?php require "menu_desplegabel.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section>
                     <div class="container-lg ">
@@ -81,8 +72,7 @@ session_start();
                                             <td><?php echo $data["direccion"] ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-editar-cliente" data-bs-toggle="modal" data-bs-target="#editar_cliente" data-id="<?php echo $data["idcliente"] ?>">Editar</button>
-                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                                data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>" >Eliminar</button>
+                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>">Eliminar</button>
                                             </td>
 
 
@@ -155,15 +145,15 @@ session_start();
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     <p id="pregunta">¿Estás seguro de que deseas eliminar este registro?</p>
                     <p id="registroNombre"></p>
                     <p id="registroApellido"></p>
                     <p id="registroDNI"></p>
                 </div>
                 <div class="modal-footer">
-                    <button  class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
-                    <button  class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
+                    <button class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -218,17 +208,17 @@ session_start();
                             id: id
                         },
                         success: function(response) {
-                            if(response==1){
+                            if (response == 1) {
                                 $('#registroNombre').text('');
                                 $('#registroApellido').text('');
                                 $('#registroDNI').text('');
                                 $('#salir_e').html('Salir');
                                 $('#pregunta').text('El cliente se ha eliminado corectamente.');
                                 boton.hide();
-                                $('#salir_e, #cerrar_e').click(function(){
+                                $('#salir_e, #cerrar_e').click(function() {
                                     $('button[data-id="' + id + '"]').closest('tr').remove();
                                 })
-                            }else{
+                            } else {
                                 $('#registroNombre').text('');
                                 $('#registroApellido').text('');
                                 $('#registroDNI').text('');

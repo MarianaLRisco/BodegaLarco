@@ -68,7 +68,8 @@ if (!empty($_POST)) {
         .size {
             width: 70px;
         }
-        #btn_agregar{
+
+        #btn_agregar {
             display: none;
         }
     </style>
@@ -79,15 +80,7 @@ if (!empty($_POST)) {
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
-                </ul>
-            </div>
+            <?php require "menu_desplegabel.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section class="d-flex justify-content-center ">
                     <div class="card col-sm-6 p-3 w-75">
@@ -121,7 +114,7 @@ if (!empty($_POST)) {
                                         </hr>
                                     </div>
                                     <div class="text-center" id="registro_cliente">
-                                    <a class="btn btn-primary btn_cliente" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
+                                        <a class="btn btn-primary btn_cliente" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
                                     </div>
                                     <hr class="transparent-hr">
                                     </hr>
@@ -149,8 +142,8 @@ if (!empty($_POST)) {
                                         <td id="existencias">--</td>
                                         <td>
                                             <div class="col-sm-6">
-                                            <input class="form-control form-control-sm text-end" type="text" 
-                                            name="cantidad" id="cantidad" value="0" min="1" disabled></div>
+                                                <input class="form-control form-control-sm text-end" type="text" name="cantidad" id="cantidad" value="0" min="1" disabled>
+                                            </div>
                                         </td>
                                         <td id="precio" class="text-end">0.00</td>
                                         <td id="precio_total" class="text-end">0.00</td>
@@ -204,90 +197,90 @@ if (!empty($_POST)) {
 <script src="js/getdate.js?869"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/menu.js?7796"></script>
-<script >
-        $(document).ready(function () {
+<script>
+    $(document).ready(function() {
         //buscar cliente
-        $("#dni").keyup(function (e) {
+        $("#dni").keyup(function(e) {
             e.preventDefault();
             var cl = $(this).val();
             parametros = {
-            dni: cl,
+                dni: cl,
             };
             $.ajax({
-            data: parametros,
-            url: "controler/Clientescontrol.php?op=BuscarClienteDNI",
-            type: "POST",
-            async: true,
-            success: function (response) {
-                console.log(response);
-                if(response==0){
-                    $('#idcliente').val('');
-                    $('#nombre').val('');
-                    $('#apellido').val('');
-                    $('#direccion').val('');
-                    $('#registro_cliente').slideDown();
-                }else{
-                    var data = $.parseJSON(response);
-                    $('#idcliente').val(data.idcliente);
-                    $('#nombre').val(data.nombre);
-                    $('#apellido').val(data.apellido);
-                    $('#direccion').val(data.direccion);
-                    $('#registro_cliente').slideUp();
-                }
-            },
-            error: function () {},
+                data: parametros,
+                url: "controler/Clientescontrol.php?op=BuscarClienteDNI",
+                type: "POST",
+                async: true,
+                success: function(response) {
+                    console.log(response);
+                    if (response == 0) {
+                        $('#idcliente').val('');
+                        $('#nombre').val('');
+                        $('#apellido').val('');
+                        $('#direccion').val('');
+                        $('#registro_cliente').slideDown();
+                    } else {
+                        var data = $.parseJSON(response);
+                        $('#idcliente').val(data.idcliente);
+                        $('#nombre').val(data.nombre);
+                        $('#apellido').val(data.apellido);
+                        $('#direccion').val(data.direccion);
+                        $('#registro_cliente').slideUp();
+                    }
+                },
+                error: function() {},
             });
         });
         //buscar nombre
-        $("#nombre_p").keyup(function (e) {
+        $("#nombre_p").keyup(function(e) {
             e.preventDefault();
             var pd = $(this).val();
             parametros = {
-            'nombre': pd,
+                'nombre': pd,
             };
             $.ajax({
-            data: parametros,
-            url: "controler/Productoscontrol.php?op=BuscarProductoNombre",
-            type: "POST",
-            async: true,
-            success: function (response) {
-                console.log(response);
-                if(response==0){
-                    $('#idproducto').html('--');
-                    $('#existencias').html('--');
-                    $('#precio').html('');
-                   
-                }else{
-                    var data = $.parseJSON(response);
+                data: parametros,
+                url: "controler/Productoscontrol.php?op=BuscarProductoNombre",
+                type: "POST",
+                async: true,
+                success: function(response) {
+                    console.log(response);
+                    if (response == 0) {
+                        $('#idproducto').html('--');
+                        $('#existencias').html('--');
+                        $('#precio').html('');
 
-                    $('#idproducto').html(data.idproducto);
-                    $('#existencias').html(data.cantidad);
-                    $('#cantidad').val('1');
-                    $('#precio').html(data.precio);
-                    $('#precio_total').html(data.precio);
+                    } else {
+                        var data = $.parseJSON(response);
 
-                    $('#cantidad').removeAttr('disabled');
-                    $('#btn_agregar').slideDown();
-                   
-                }
-                
-            },
-            error: function () {},
+                        $('#idproducto').html(data.idproducto);
+                        $('#existencias').html(data.cantidad);
+                        $('#cantidad').val('1');
+                        $('#precio').html(data.precio);
+                        $('#precio_total').html(data.precio);
+
+                        $('#cantidad').removeAttr('disabled');
+                        $('#btn_agregar').slideDown();
+
+                    }
+
+                },
+                error: function() {},
             });
         });
 
-        $('#cantidad').keyup(function(e){
+        $('#cantidad').keyup(function(e) {
             e.preventDefault();
-            var precio_total= $(this).val() * $('#precio').html();
-            
+            var precio_total = $(this).val() * $('#precio').html();
 
-            if($(this).val()<1 || isNaN($(this).val()) || $(this).val()>$('#existencias').html()){
+
+            if ($(this).val() < 1 || isNaN($(this).val()) || $(this).val() > $('#existencias').html()) {
                 $('#precio_total').html('--');
                 $('#btn_agregar').slideUp();
-            }else{
+            } else {
                 $('#precio_total').html(precio_total);
                 $('#btn_agregar').slideDown();
             }
         });
-        });
+    });
 </script>

@@ -30,16 +30,7 @@ session_start();
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
-                </ul>
-
-            </div>
+            <?php require "menu_desplegabel.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section>
 
@@ -96,8 +87,7 @@ session_start();
                                             </td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-editar-usuario" data-bs-toggle="modal" data-bs-target="#editar_usuario" data-id="<?php echo $data["idusuario"] ?>">Editar</button>
-                                                <button class="btn btn-sm btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php echo $data["idusuario"] ?>"
-                                                data-dni="<?php echo $data["DNI"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>">Eliminar</button>
+                                                <button class="btn btn-sm btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php echo $data["idusuario"] ?>" data-dni="<?php echo $data["DNI"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>">Eliminar</button>
                                             </td>
                                         </tr>
                                 <?php
@@ -145,7 +135,7 @@ session_start();
                             <label for="nombre">Usuario</label>
                             <input type="text" class="form-control" name="usuario" id="usuario">
                         </div>
-                        
+
                         <div class="mb-2">
                             <label for="nombre">Rol</label>
                             <?php
@@ -226,7 +216,7 @@ session_start();
             var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
             var columna5 = $(this).closest('tr').find('td:eq(5)').text().trim();
             var columna6 = $(this).closest('tr').find('td:eq(6)').text().trim();
-            
+
 
             // Actualiza los valores en el modal
             $('#id').val(id);
@@ -245,22 +235,22 @@ session_start();
             $('.btn-delete').click(function() {
                 var id = $(this).data('id'); // Obtener el ID del registro a eliminar
                 $('#btnConfirmDelete').data('id', id); // Almacenar el ID en el botón de confirmación
-                 // Obtener el ID del registro
+                // Obtener el ID del registro
                 var dni = $(this).data('dni');
                 var nombre = $(this).data('nombre');
                 var apellido = $(this).data('apellido');
                 // Mostrar el modal de confirmación de eliminación
-                $('#deleteData_1').text('DNI: ' + dni );
-                $('#deleteData_2').text('Nombre: ' + nombre );
-                $('#deleteData_3').text('Apellido: ' + apellido );
+                $('#deleteData_1').text('DNI: ' + dni);
+                $('#deleteData_2').text('Nombre: ' + nombre);
+                $('#deleteData_3').text('Apellido: ' + apellido);
                 $('#deleteModal').modal('show');
-                
+
             });
 
             // Capturar evento de clic del botón de confirmación de eliminación
             $('#btnConfirmDelete').click(function() {
                 var id = $(this).data('id'); // Obtener el ID del registro a eliminar
-                var boton = $(this); 
+                var boton = $(this);
                 // Enviar solicitud AJAX al servidor para eliminar el registro
                 $.ajax({
                     url: 'controler/Usuarioscontrol.php?op=eliminar_usuario', // Ruta a tu script PHP para eliminar el registro
@@ -269,25 +259,25 @@ session_start();
                         id: id
                     }, // Enviar el ID del registro al servidor
                     success: function(response) {
-                        
-                        if(response==1){
+
+                        if (response == 1) {
                             $('#deleteData_1').text('');
                             $('#deleteData_2').text('');
                             $('#deleteData_3').text('');
                             $('#pregunta').text('Usuario eliminado exitozamente.')
                             $('#salir_e').html('Cerrar');
                             boton.hide();
-                            $('#salir_e, #cerrar_e').click(function(){
+                            $('#salir_e, #cerrar_e').click(function() {
                                 $('button[data-id="' + id + '"]').closest('tr').remove();
                             });
-                        }else{
+                        } else {
                             $('#deleteData_1').text('');
                             $('#deleteData_2').text('');
                             $('#deleteData_3').text('');
                             boton.hide();
                             $('#pregunta').text('El Usuario no se puedo eliminar.')
                         }
-                        
+
                     }
                 });
             });

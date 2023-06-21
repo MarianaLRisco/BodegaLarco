@@ -181,6 +181,42 @@ ul:focus {
   color: var(--color-gray)!important;
 }
 
+.rectangle {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border: 4px solid black;
+}
+
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+
+.option i {
+  font-size: 45px;
+  margin-bottom: 5px;
+}
+
+.option a {
+  font-size: 16px;
+  text-decoration: none!important;
+}
+
+h1 {
+ text-align: center;
+}
+
+
+
 @media (max-width: 576px) {
   .header-container {
     height: 60px!important;

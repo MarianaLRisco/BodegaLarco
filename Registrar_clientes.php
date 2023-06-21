@@ -62,16 +62,7 @@ if (!empty($_POST)) {
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
-                </ul>
-
-            </div>
+            <?php require "menu_desplegabel.php"; ?>
             <div class="col-10 flex-shrink-0 ">
 
                 <section class="d-flex justify-content-center">
