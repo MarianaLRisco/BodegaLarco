@@ -155,7 +155,7 @@ main {
 }
 
 .sidebar{
-  width: 200px; 
+  width: 220px; 
   height: 100vh;
   background-color: var(--color-black)!important;
   position: fixed;
@@ -260,7 +260,7 @@ h1 {
     padding-bottom: 20px;
   }
   .sidebar{
-    width: 90px; 
+    width: 90px!important; 
     align-items: center;
   }
   .tmenu{
@@ -270,5 +270,6 @@ h1 {
   .nav ul{
     color: var(--color-cream)!important;
   }
+  
   
 }

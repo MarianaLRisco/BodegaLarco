@@ -62,7 +62,6 @@ session_start();
                                         $id = $data["idcliente"];
 
                                 ?>
-
                                         <tr>
                                             <td><?php echo $data["idcliente"] ?></td>
                                             <td><?php echo $data["DNI"] ?></td>
@@ -74,8 +73,6 @@ session_start();
                                                 <button class="btn btn-sm btn-success btn-editar-cliente" data-bs-toggle="modal" data-bs-target="#editar_cliente" data-id="<?php echo $data["idcliente"] ?>">Editar</button>
                                                 <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>">Eliminar</button>
                                             </td>
-
-
                                         </tr>
                                 <?php
                                     }
