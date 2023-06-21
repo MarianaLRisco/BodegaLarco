@@ -23,7 +23,7 @@
         $_SESSION['user']=$data['usuario'];
         $_SESSION['rol']=$data['rol'];
 
-        header('location: bodegalarco/inicio.php');
+        header('location: inicio.php');
       }
     }
     

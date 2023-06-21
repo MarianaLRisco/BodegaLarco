@@ -225,17 +225,17 @@ include "conexion.php";
                         <input type="hidden" id="id_1" name="id_1">
                         
                         <div class="mb-2">
-                            <label for="precio_agregar">Precio</label>
+                            <label for="precio_agregar" id="label_precio">Precio</label>
                             <input type="text" class="form-control" name="precio_agregar" id="precio_agregar">
                         </div>
                         <div class="mb-2">
-                            <label for="cantidad_agregar">existencias</label>
+                            <label for="cantidad_agregar" id="label_cantidad">existencias</label>
                             <input type="text" class="form-control" name="cantidad_agregar" id="cantidad_agregar">
                         </div>
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button class="btn btn-danger" data-dismiss="modal">cancelar</button>
+                            <button class="btn btn-danger" data-dismiss="modal" id="salir_g">cancelar</button>
                             <button class="btn btn-primary" href="#" id="btn_agregar_producto">agregar</button>
 
                         </div>
@@ -290,13 +290,13 @@ include "conexion.php";
                 var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();           
                 var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
                 
-                
                 $('#Nombre_agregar').text('Producto: ' + columna1 +' '+ columna4);
                 
                 $('#id_1').val(id);
 
                 $('#btn_agregar_producto').click(function(e){
                     e.preventDefault();
+                    var boton = $(this);
                     id=$('#id_1').val();
                     cantidad=$('#cantidad_agregar').val();
                     precio=$('#precio_agregar').val();
@@ -306,6 +306,23 @@ include "conexion.php";
                         type: 'POST',
                         data: parametros,
                         success: function(response) {
+                            if (response != 0) {
+                                $('#salir_g').html('Salir');
+                                boton.hide();
+                                $("#label_cantidad").addClass("text-center");
+                                $('#label_cantidad').text('El Producto se ha agregado corectamente.');
+                                $('#cantidad_agregar').addClass('d-none');
+                                $('#precio_agregar').addClass('d-none');
+                                $('#label_precio').addClass('d-none');
+                            } else {
+                                $('#salir_g').html('Salir');
+                                boton.hide();
+                                $("#label_cantidad").addClass("text-center");
+                                $('#label_cantidad').text('El Producto no se ha agregar.');
+                                $('#cantidad_agregar').addClass('d-none');
+                                $('#precio_agregar').addClass('d-none');
+                                $('#label_precio').addClass('d-none');
+                            }
                             
                         }
                     });
