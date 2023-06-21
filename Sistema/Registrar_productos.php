@@ -1,7 +1,7 @@
 <?php
      
     include "conexion.php";
-    session_start();
+    
     if(!empty($_POST)){
         $aler='';
         if(empty($_POST['proveedor'])||empty($_POST['nombre'])||empty($_POST['precio'])||empty($_POST['cantidad'])||empty($_POST['categoria'])

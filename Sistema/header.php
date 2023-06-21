@@ -19,7 +19,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="item dropdown-item" href="salir.php">Cerrar session</a></li>
+                        <li><a class="item dropdown-item" href="#">Sign out</a></li>
                     </ul>
                 </div>
                 

@@ -1,34 +1,36 @@
 <?php
      
     include "conexion.php";
-    session_start();
+    
     if(!empty($_POST)){
         $aler='';
-        if(empty($_POST['proveedor'])||empty($_POST['nombre'])||empty($_POST['precio'])||empty($_POST['cantidad'])||empty($_POST['categoria'])
+        if(empty($_POST['nombre'])||empty($_POST['apellido'])||empty($_POST['usuario'])||empty($_POST['correo'])||
+        empty($_POST['clave'])||empty($_POST['rol']||empty($_POST['dni']))
         ){
-            $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">Debe llenar todos los campos.
+            $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert" >Debe llenar todos los campos.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         }else{
-            $proveedor=$_POST['proveedor'];
+            $dni=$_POST['dni'];
             $nombre=$_POST['nombre'];
-            $precio=$_POST['precio'];
-            $cantidad=$_POST['cantidad'];
-            $categoria=$_POST['categoria'];
-            
+            $apellido=$_POST['apellido'];
+            $usuario=$_POST['usuario'];
+            $correo=$_POST['correo'];
+            $clave=$_POST['clave'];
+            $rol=$_POST['rol'];
 
-            $query = mysqli_query($conection, "SELECT * FROM producto WHERE nombre = '$nombre'");
+            $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario = '$usuario' OR correo = '$correo' ");
             $result = mysqli_fetch_array($query);
             if($result > 0){
-                $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">El Producto ya esta registrado.
+                $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">El correo o usuario ya existe
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
             }else{
-                $query_insert = mysqli_query($conection,"INSERT INTO producto(proveedor,nombre,precio,cantidad,idcategoria)
-                VALUES ('$proveedor','$nombre','$precio','$cantidad','$categoria')");
+                $query_insert = mysqli_query($conection,"INSERT INTO usuario(DNI,nombre,apellido,correo,usuario,clave,rol)
+                VALUES ('$dni','$nombre','$apellido','$correo','$usuario','$clave','$rol')");
                 if($query_insert){
-                    $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">Producto registrado exitosamente.
+                    $aler = '<div class="alert alert-success  alert-dismissible fade show" role="alert">Usuario registrado exitosamente.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 }else{
-                    $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">Error al registrar el producto.
+                    $aler = '<div class="alert alert-danger alert-dismissible fade show" role="alert">Error al registrar el usuario.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 }
             }
@@ -68,69 +70,61 @@
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <?php require "menu_desplegabel.php";?>
                 </ul>
-                
             </div>
             <div class="col-10 flex-shrink-0 ">
                 
                 <section class="d-flex justify-content-center">
                     <div class="card col-sm-6 p-3">
                         <div>
-                            <h1>Registrar Productos</h1>
+                            <h1>Registrar Usuario</h1>
                         </div>
                         <div class="mb-2">
                             <form action="" method='post'>
-                                <div class="mb-2">
-                                <label for="nombre">Proveedor</label>
+                                <div class="mb-2"> 
+                                <label for="nombre">DNI</label>
+                                <input type="text" pattern="[0-9]{8}" class="form-control" name="dni" id="dni" placeholder="ej. 71722752">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="ej. Marco Antonio">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Apellido</label>
+                                <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ej. Silva Castillo">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Correo</label>
+                                <input type="email" class="form-control" name="correo" id="correo" placeholder="ej. hla234@gmail.com">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Usuario</label>
+                                <input type="text" class="form-control" name="usuario" id="usuario" placeholder="ej. marcoS2">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Contraseña</label>
+                                <input type="text" class="form-control" name="clave" id="clave" placeholder="ej. 12345">
+                                </div>
+                                <div class="mb-2"> 
+                                <label for="nombre">Rol</label>
+                                <?php
+                                    $query_rol = mysqli_query($conection, 'SELECT rol.idrol, rol.rol FROM rol');
+                                    $result_rol= mysqli_num_rows($query_rol)
+                                    
+                                    
+                                ?>
+                                <select class="form-select" name="rol" id="rol">
                                     <?php
-                                        $query_rol = mysqli_query($conection, 'SELECT proveedor.idproveedor, proveedor.proveedor FROM proveedor');
-                                        $result_rol= mysqli_num_rows($query_rol)
-                                        
-                                        
+                                        if($result_rol > 0){
+                                            while($rol = mysqli_fetch_array($query_rol)){ 
                                     ?>
-                                    <select class="form-select" name="proveedor" id="proveedor">
-                                        <?php
-                                            if($result_rol > 0){
-                                                while($rol = mysqli_fetch_array($query_rol)){ 
-                                        ?>
-                                        <option value="<?php echo $rol['idproveedor']?>"><?php echo $rol['proveedor']?></option>
-                                        <?php
-                                                }
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="mb-2"> 
-                                <label for="contacto">Producto</label>
-                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre Producto">
-                                </div>
-                                <div class="mb-2"> 
-                                <label for="precio">Precio</label>
-                                <input type="number" step="0.01" class="form-control" name="precio" id="precio" placeholder="Precio de producto">
-                                </div>
-                                <div class="mb-2"> 
-                                <label for="cantidad">Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad de producto">
-                                <div class="mb-2">
-                                <label for="nombre">Categoria</label>
+                                    <option value="<?php echo $rol['idrol']?>"><?php echo $rol['rol']?></option>
                                     <?php
-                                        $query_rol = mysqli_query($conection, 'SELECT c.idcategoria, c.nombre FROM categoria c');
-                                        $result_rol= mysqli_num_rows($query_rol)
-                                        
-                                        
-                                    ?>
-                                    <select class="form-select" name="categoria" id="categoria">
-                                        <?php
-                                            if($result_rol > 0){
-                                                while($rol = mysqli_fetch_array($query_rol)){ 
-                                        ?>
-                                        <option value="<?php echo $rol['idcategoria']?>"><?php echo $rol['nombre']?></option>
-                                        <?php
-                                                }
                                             }
-                                        ?>
-                                    </select>
+                                        }
+                                    ?>
+                                </select>
                                 </div>
-                                
+
                                 <div class='alert'>
                                     <?php echo isset($aler) ? $aler :''; ?>
                                 </div>
