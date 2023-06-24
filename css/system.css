@@ -180,6 +180,9 @@ ul:focus {
 .nav-item.show{
   color: var(--color-gray)!important;
 }
+.container-lg{
+  margin-left: 250px;
+}
 
 .rectangle {
   display: flex;
