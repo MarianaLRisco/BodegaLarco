@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.php";
+include "bd/conexion.php";
 session_start();
 if (!empty($_POST)) {
     $aler = '';
@@ -80,7 +80,7 @@ if (!empty($_POST)) {
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <?php require "menu_desplegabel.php"; ?>
+            <?php require "menu_desplegable.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section class="d-flex justify-content-center ">
                     <div class="card col-sm-6 p-3 w-75">
