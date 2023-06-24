@@ -1,6 +1,6 @@
 <?php
-include "conexion.php";
-session_start();
+    include ('bd/conexion.php');
+    session_start();
 ?>
 
 <!DOCTYPE html>

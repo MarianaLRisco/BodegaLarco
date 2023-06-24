@@ -1,41 +1,5 @@
 <?php
-$alert = '';
-session_start();
-if (!empty($_SESSION['active'])) {
-  header('location: inicio.php');
-} else {
-  if (!empty($_POST)) {
-    if (empty($_POST['clave']) || empty($_POST['usuario'])) {
-      $alert = "ingrese sus datos.";
-    } else {
-      require 'conexion.php';
-      $user = $_POST['usuario'];
-      $pass = $_POST['clave'];
-
-      $query = mysqli_query($conection, "SELECT * FROM usuario WHERE usuario='$user' and clave='$pass' and estado_u=1 ");
-      $resul = mysqli_num_rows($query);
-
-      if ($resul > 0) {
-        $data = mysqli_fetch_array($query);
-        print_r($data);
-        $_SESSION['active'] = true;
-        $_SESSION['iduser'] = $data['idusuario'];
-        $_SESSION['nombre'] = $data['nombre'];
-        $_SESSION['apellido'] = $data['Apellido'];
-        $_SESSION['email'] = $data['email'];
-        $_SESSION['user'] = $data['usuario'];
-        $_SESSION['rol'] = $data['rol'];
-
-        header('location: inicio.php');
-        exit();
-      } else {
-        $alert = "El usuario o contraseña no existen";
-        session_destroy();
-      }
-    }
-  }
-}
-
+ include('controler/loginControl.php');
 ?>
 
 
@@ -43,13 +7,13 @@ if (!empty($_SESSION['active'])) {
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
+  <!-- meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/style.css?585">
+  <link rel="stylesheet" type="text/css" href="css/style.css?48">
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
   <!-- icons -->
@@ -60,25 +24,15 @@ if (!empty($_SESSION['active'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" stylesheethref="assets/plugins/DataTables/datatables.min.css">
   <link rel="stylesheet" href="assets/plugins/DataTables/DataTables-1.13.4/css/dataTables.bootstrap5.min.css">
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
-  <style>
-    .login-box {
-  max-width: 600px; /* Ajusta el ancho máximo del login-box */
-  margin: 0 auto; /* Centra el login-box horizontalmente */
-  padding: 20px; /* Agrega un espacio de relleno alrededor del login-box */
-}
-  </style>
+  <script src="js/login.js?58"></script>
+ 
   <!-- Title -->
   <title>Login Larco</title>
 </head>
 
 <body>
   <section class="login-content">
-    <div class="login-box container-fluid">
+    <div id="login-box" class="login-box">
       <form class="login-form" action="" method="post">
         <h3 class="login-head"><ion-icon size="large" name="person-sharp"></ion-icon> Inicia Sesión</h3>
         <div class="mb-3">
@@ -89,25 +43,25 @@ if (!empty($_SESSION['active'])) {
           <label class="font-text">Contraseña</label>
           <input class="form-control form-control-lg" type="password" name="clave" placeholder="Ingrese su contraseña" id="clave">
         </div>
+        <?php if (!empty($_POST) && isset($alert)) : ?>
+          <div id="alert" class="alert alert-danger fade show"><?php echo $alert; ?></div>
+        <?php endif; ?>
         <div class="row mb-3">
           <div class="col-md-7 utility">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <input class="form-check-input" type="checkbox" value="" name="flexCheckDefault" id="flexCheckDefault">
               <label class="form-check-label" for="flexCheckDefault">
                 Mantener la sesión iniciada
               </label>
             </div>
           </div>
           <div class="col-md-5 mb-2">
-            <a href="#" class="text-forgot" data-toggle="flip">Olvidé mi contraseña?</a>
+            <a href="#" id="forget" class="text-forgot" data-toggle="flip">Olvidé mi contraseña?</a>
           </div>
         </div>
-        <?php if (!empty($_POST) && isset($alert)) : ?>
-          <div class="alert alert-danger alert-dismissible fade show"><?php echo $alert; ?>
-          </div>
-        <?php endif; ?>
+       
         <div class="mb-3 btn-container">
-          <button type="submit" class="btn btn-primary">Iniciar Sesión</a>
+          <button type="submit" id="login-button" class="btn btn-primary">Iniciar Sesión</a>
         </div>
       </form>
       <form class="forget-form" action="index.php">
@@ -121,7 +75,7 @@ if (!empty($_SESSION['active'])) {
           <button class="btn btn-primary d-block"><i class="fa fa-unlock fa-lg fa-fw"></i>Enviar</button>
         </div>
         <div class="mb-3 mt-3">
-          <a href="#" class="text-forgot" data-toggle="flip"><ion-icon name="chevron-back-outline"></ion-icon>Volver al Login</a>
+          <a href="#" id="volver" class="text-forgot" data-toggle="flip"><ion-icon name="chevron-back-outline"></ion-icon>Volver al Login</a>
         </div>
       </form>
     </div>
