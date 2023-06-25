@@ -276,42 +276,23 @@ session_start();
                 var id = $(this).data('id');
                 var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
                 var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
-<<<<<<< HEAD
                 
                 $('#Nombre_agregar').text('Producto: ' + columna1 +' '+ columna4);
                 
-=======
-
-
-                $('#Nombre_agregar').text('Producto: ' + columna1 + ' ' + columna4);
-
->>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                 $('#id_1').val(id);
 
                 $('#btn_agregar_producto').click(function(e) {
                     e.preventDefault();
-<<<<<<< HEAD
                     var boton = $(this);
                     id=$('#id_1').val();
                     cantidad=$('#cantidad_agregar').val();
                     precio=$('#precio_agregar').val();
                     parametros = { "id":id,"n_cantidad":cantidad,"n_precio":precio}
-=======
-                    id = $('#id_1').val();
-                    cantidad = $('#cantidad_agregar').val();
-                    precio = $('#precio_agregar').val();
-                    parametros = {
-                        "id": id,
-                        "n_cantidad": cantidad,
-                        "n_precio": precio
-                    }
->>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                     $.ajax({
                         url: 'controler/Productoscontrol.php?op=agregar_producto',
                         type: 'POST',
                         data: parametros,
                         success: function(response) {
-<<<<<<< HEAD
                             if (response != 0) {
                                 $('#salir_g').html('Salir');
                                 boton.hide();
@@ -330,9 +311,6 @@ session_start();
                                 $('#label_precio').addClass('d-none');
                             }
                             
-=======
-
->>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                         }
                     });
                 });
