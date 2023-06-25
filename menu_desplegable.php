@@ -1,9 +1,15 @@
-<li class="nav-item">
-                        <a href="inicio.php" class=" nav-link align-middle px-0">
-                            <ion-icon name="home"></ion-icon><span class="ms-1 d-none d-sm-inline">Inicio</span>
-                        </a>
-                    </li>
-                    <?php if ($_SESSION['rol']==1): ?>
+<div class="col-auto sidebar col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
+            <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom mt-4">
+                <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2 mb-4">
+                <p class='text-light text-center order-2 mb-4'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['rol'] ?></p>
+            </div>
+            <ul class="nav nav-pills flex-column mb-sm-auto mt-3 align-items-center align-items-sm-start" id="menu">
+                <li class="nav-item">
+                    <a href="inicio.php" class="nav-link align-middle px-0">
+                        <ion-icon name="home"></ion-icon><span class="ms-1 d-none d-sm-inline">Inicio</span>
+                    </a>
+                </li>
+                <?php if ($_SESSION['rol'] == 1) : ?>
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fa-solid fa-circle-user"></i><span class="ms-1 d-none d-sm-inline">Usuarios</span>
@@ -19,23 +25,22 @@
                     </li>
                     <li>
                     <?php endif; ?>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fa-solid fa-user-group"></i><span class="ms-1 d-none d-sm-inline">Clientes</span>
-                        </a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="Registrar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar Cliente</span></a>
-                            </li>
-                            <li>
-                                <a href="Listar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Clientes</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                        <i class="fa-solid fa-user-group"></i><span class="ms-1 d-none d-sm-inline">Clientes</span>
+                    </a>
+                    <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                        <li class="w-100">
+                            <a href="Registrar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Registrar Cliente</span></a>
+                        </li>
+                        <li>
+                            <a href="Listar_clientes.php" class="nav-link px-0"> <span class="d-none d-sm-inline">Lista de Clientes</span>
+                            </a>
+                        </li>
+                    </ul>
                     </li>
                     <li>
                         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fa-solid fa-chalkboard-user"></i><span
-                                class="ms-1 d-none d-sm-inline">Proveedores</span>
+                            <i class="fa-solid fa-chalkboard-user"></i><span class="ms-1 d-none d-sm-inline">Proveedores</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
@@ -74,3 +79,5 @@
                             </li>
                         </ul>
                     </li>
+            </ul>
+        </div>

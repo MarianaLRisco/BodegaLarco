@@ -1,5 +1,5 @@
 <?php
-include "conexion.php";
+include "bd/conexion.php";
 session_start();
 ?>
 
@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?474'>
+    <link rel='stylesheet' href='css/system.css?484'>
     <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -30,6 +30,7 @@ session_start();
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
+<<<<<<< HEAD
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
                 <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
                     <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
@@ -41,15 +42,19 @@ session_start();
                 </ul>
 
             </div>
+=======
+            <?php require "menu_desplegable.php"; ?>
+>>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
             <div class="col-10 flex-shrink-0 ">
                 <section>
                     <div class="container-lg ">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <h1 clas="d-inline-block align-text-top h3">Lista de Clientes</h1>
+                            <!-- <div class="row">
+                                <div class="">
                                     <h1 clas="d-inline-block align-text-top h3">Lista de Clientes</h1>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <table class="table table-success table-striped" id="lista_clientes">
                             <thead width='90%'>
@@ -72,7 +77,6 @@ session_start();
                                         $id = $data["idcliente"];
 
                                 ?>
-
                                         <tr>
                                             <td><?php echo $data["idcliente"] ?></td>
                                             <td><?php echo $data["DNI"] ?></td>
@@ -82,11 +86,8 @@ session_start();
                                             <td><?php echo $data["direccion"] ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-success btn-editar-cliente" data-bs-toggle="modal" data-bs-target="#editar_cliente" data-id="<?php echo $data["idcliente"] ?>">Editar</button>
-                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" 
-                                                data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>" >Eliminar</button>
+                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="<?php echo $data["idcliente"] ?>" data-nombre="<?php echo $data["nombre"] ?>" data-apellido="<?php echo $data["apellido"] ?>" data-dni="<?php echo $data["DNI"] ?>">Eliminar</button>
                                             </td>
-
-
                                         </tr>
                                 <?php
                                     }
@@ -156,15 +157,15 @@ session_start();
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     <p id="pregunta">¿Estás seguro de que deseas eliminar este registro?</p>
                     <p id="registroNombre"></p>
                     <p id="registroApellido"></p>
                     <p id="registroDNI"></p>
                 </div>
                 <div class="modal-footer">
-                    <button  class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
-                    <button  class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
+                    <button class="btn btn-primary" data-bs-dismiss="modal" id="salir_e">Cancelar</button>
+                    <button class="btn btn-danger" id="btnEliminarRegistro">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -219,17 +220,17 @@ session_start();
                             id: id
                         },
                         success: function(response) {
-                            if(response==1){
+                            if (response == 1) {
                                 $('#registroNombre').text('');
                                 $('#registroApellido').text('');
                                 $('#registroDNI').text('');
                                 $('#salir_e').html('Salir');
                                 $('#pregunta').text('El cliente se ha eliminado corectamente.');
                                 boton.hide();
-                                $('#salir_e, #cerrar_e').click(function(){
+                                $('#salir_e, #cerrar_e').click(function() {
                                     $('button[data-id="' + id + '"]').closest('tr').remove();
                                 })
-                            }else{
+                            } else {
                                 $('#registroNombre').text('');
                                 $('#registroApellido').text('');
                                 $('#registroDNI').text('');

@@ -79,9 +79,12 @@ body{
 }
 
 .header-container {
+  position: fixed!important;
   display: flex;
+  width: 100%;
   align-items: center;
   height: 75px!important;
+  z-index: 3;
   background-color: var(--color-blue-light);
 }
 
@@ -112,12 +115,22 @@ body{
   font-size: 30px;
 }
 .container-icon ul.dropdown-menu{
-    margin-top: 200px!important;
-    margin-right: 30px!important;
+  position: absolute; 
+  inset: 0px auto auto 0px; 
+  margin: 0px; 
+  transform: translate3d(-111px, 42px, 0px);
+  margin-top: 14px!important;
+  margin-left: 45.9px!important;
+  /* margin-top: 200px!important;
+  margin-right: 30px!important; */
 }
 .container-icon ul.dropdown-menu.show{
-    margin-top: 14px!important;
-    margin-left: 45.5px!important;
+  position: absolute; 
+  inset: 0px auto auto 0px; 
+  margin: 0px; 
+  transform: translate3d(-111px, 42px, 0px);
+  margin-top: 11px!important;
+  margin-left: 61.5px!important;
 }
 .item:hover{
     background-color: #acd4f4;
@@ -155,10 +168,12 @@ main {
 }
 
 .sidebar{
-  width: 200px; 
+  margin-top: 75px;
+  width: 220px; 
   height: 100vh;
   background-color: var(--color-black)!important;
   position: fixed;
+  z-index: 2;
 }
 
 
@@ -180,6 +195,48 @@ ul:focus {
 .nav-item.show{
   color: var(--color-gray)!important;
 }
+.container-lg{
+  margin-top: 90px!important;
+  margin-bottom: 15px;
+  z-index: 1;
+  margin-left: 250px;
+}
+
+.rectangle {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  border: 4px solid black;
+}
+
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+
+.option i {
+  font-size: 45px;
+  margin-bottom: 5px;
+}
+
+.option a {
+  font-size: 16px;
+  text-decoration: none!important;
+}
+
+h1 {
+ text-align: center;
+}
+
+
 
 @media (max-width: 576px) {
   .header-container {
@@ -224,7 +281,7 @@ ul:focus {
     padding-bottom: 20px;
   }
   .sidebar{
-    width: 90px; 
+    width: 90px!important; 
     align-items: center;
   }
   .tmenu{
@@ -234,5 +291,6 @@ ul:focus {
   .nav ul{
     color: var(--color-cream)!important;
   }
+  
   
 }

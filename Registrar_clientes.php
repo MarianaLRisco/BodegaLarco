@@ -1,6 +1,6 @@
 <?php
 
-include "conexion.php";
+include "bd/conexion.php";
 session_start();
 if (!empty($_POST)) {
     $aler = '';
@@ -46,7 +46,7 @@ if (!empty($_POST)) {
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?474'>
+    <link rel='stylesheet' href='css/system.css?4848'>
     <script src="libs/jquery-3.6.1.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -62,6 +62,7 @@ if (!empty($_POST)) {
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
+<<<<<<< HEAD
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
                 <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
                     <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
@@ -74,6 +75,10 @@ if (!empty($_POST)) {
             </div>
             <div class="col-10 flex-shrink-0 ">
 
+=======
+            <?php require "menu_desplegable.php"; ?>
+            <div class="container-lg col-10 flex-shrink-0">
+>>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                 <section class="d-flex justify-content-center">
                     <div class="card col-sm-6 p-3">
                         <div>
