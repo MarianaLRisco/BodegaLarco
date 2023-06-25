@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?474'>
+    <link rel='stylesheet' href='css/system.css?484'>
     <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -53,9 +53,9 @@ session_start();
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <body>
                                 <?php
-                                $query = mysqli_query($conection, "SELECT * FROM proveedor where estado_p=1 ORDER BY idproveedor");
+                                $query = mysqli_query($conection, "SELECT * FROM proveedor where estado=1 ORDER BY idproveedor");
                                 $resul = mysqli_num_rows($query);
                                 if ($resul > 0) {
                                     while ($data = mysqli_fetch_array($query)) {
