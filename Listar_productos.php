@@ -1,5 +1,5 @@
 <?php
-include "conexion.php";
+include "bd/conexion.php";
 session_start();
 ?>
 
@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?474'>
+    <link rel='stylesheet' href='css/system.css?484'>
     <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -30,16 +30,7 @@ session_start();
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-                    <p class='text-light text-center order-2'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['apellido'] ?></p>
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php"; ?>
-                </ul>
-
-            </div>
+            <?php require "menu_desplegable.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section>
 
@@ -81,15 +72,10 @@ session_start();
                                             <td><?php echo $data["proveedor"] ?></td>
                                             <td><?php echo $data["categoria"] ?></td>
                                             <td>
-                                                <button class="btn btn-sm btn-warning btnAgregar" data-bs-toggle="modal" data-bs-target="#agregar_producto"
-                                                data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>'
-                                                data-proveedor='<?php echo $data["proveedor"] ?>' data-precio='<?php echo $data["precio"] ?>'>Agregar</button>
-                                                
-                                                <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" 
-                                                data-id='<?php echo $data["idproducto"] ?>'>Editar</button>
-                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#myModal" 
-                                                data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>' data-cantidad='<?php echo $data["cantidad"] ?>' 
-                                                data-proveedor='<?php echo $data["proveedor"] ?>' data-categoria='<?php echo $data["categoria"] ?>'>Eliminar</button>
+                                                <button class="btn btn-sm btn-warning btnAgregar" data-bs-toggle="modal" data-bs-target="#agregar_producto" data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>' data-proveedor='<?php echo $data["proveedor"] ?>' data-precio='<?php echo $data["precio"] ?>'>Agregar</button>
+
+                                                <button class="btn btn-sm btn-success btn-editar-productos" data-bs-toggle="modal" data-bs-target="#editar_producto" data-id='<?php echo $data["idproducto"] ?>'>Editar</button>
+                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#myModal" data-id='<?php echo $data["idproducto"] ?>' data-nombre='<?php echo $data["nombre"] ?>' data-cantidad='<?php echo $data["cantidad"] ?>' data-proveedor='<?php echo $data["proveedor"] ?>' data-categoria='<?php echo $data["categoria"] ?>'>Eliminar</button>
                                             </td>
                                         </tr>
                                 <?php
@@ -208,7 +194,7 @@ session_start();
             </div>
         </div>
     </div>
-    
+
     <!-- Modal para agregar productos -->
     <div class="modal fade" id="agregar_producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -218,13 +204,13 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-2 text-center"> 
-                            
+                    <div class="mb-2 text-center">
+
                     </div>
                     <form>
                         <p id="Nombre_agregar" class="text-center fw-bold fs-5"></p>
                         <input type="hidden" id="id_1" name="id_1">
-                        
+
                         <div class="mb-2">
                             <label for="precio_agregar" id="label_precio">Precio</label>
                             <input type="text" class="form-control" name="precio_agregar" id="precio_agregar">
@@ -260,7 +246,7 @@ session_start();
         $(document).on('click', '.btn-editar-productos', function() {
             // Obtiene los valores de los campos de la fila correspondiente
             var id = $(this).data('id');
-            
+
             var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
             var columna2 = $(this).closest('tr').find('td:eq(2)').text().trim();
             var columna3 = $(this).closest('tr').find('td:eq(3)').text().trim();
@@ -281,32 +267,51 @@ session_start();
             }).prop('selected', true);
         });
 
-        
+
 
 
         $(document).ready(function() {
             $('.btnAgregar').click(function() {
-                
+
                 var id = $(this).data('id');
-                var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();           
+                var columna1 = $(this).closest('tr').find('td:eq(1)').text().trim();
                 var columna4 = $(this).closest('tr').find('td:eq(4)').text().trim();
+<<<<<<< HEAD
                 
                 $('#Nombre_agregar').text('Producto: ' + columna1 +' '+ columna4);
                 
+=======
+
+
+                $('#Nombre_agregar').text('Producto: ' + columna1 + ' ' + columna4);
+
+>>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                 $('#id_1').val(id);
 
-                $('#btn_agregar_producto').click(function(e){
+                $('#btn_agregar_producto').click(function(e) {
                     e.preventDefault();
+<<<<<<< HEAD
                     var boton = $(this);
                     id=$('#id_1').val();
                     cantidad=$('#cantidad_agregar').val();
                     precio=$('#precio_agregar').val();
                     parametros = { "id":id,"n_cantidad":cantidad,"n_precio":precio}
+=======
+                    id = $('#id_1').val();
+                    cantidad = $('#cantidad_agregar').val();
+                    precio = $('#precio_agregar').val();
+                    parametros = {
+                        "id": id,
+                        "n_cantidad": cantidad,
+                        "n_precio": precio
+                    }
+>>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                     $.ajax({
                         url: 'controler/Productoscontrol.php?op=agregar_producto',
                         type: 'POST',
                         data: parametros,
                         success: function(response) {
+<<<<<<< HEAD
                             if (response != 0) {
                                 $('#salir_g').html('Salir');
                                 boton.hide();
@@ -325,11 +330,14 @@ session_start();
                                 $('#label_precio').addClass('d-none');
                             }
                             
+=======
+
+>>>>>>> 1a8b2be2a10bb4acae978f454e3c6ff693c1b577
                         }
                     });
                 });
             });
-            
+
             $('.btnEliminar').click(function() {
                 var id = $(this).data('id');
                 var proveedor = $(this).data('proveedor');
@@ -345,7 +353,7 @@ session_start();
 
                 $('#btnEliminarRegistro').click(function(e) {
                     e.preventDefault();
-                    var boton = $(this); 
+                    var boton = $(this);
                     $.ajax({
                         url: 'controler/Productoscontrol.php?op=eliminar_producto',
                         type: 'POST',
@@ -354,8 +362,8 @@ session_start();
                         },
                         success: function(response) {
 
-                            if(response==1){
-                               // $('#pregunta').setAttribute('disabled');
+                            if (response == 1) {
+                                // $('#pregunta').setAttribute('disabled');
                                 $('#registroNombre').text('');
                                 $('#registroExistencia').text('');
                                 $('#registroProveedor').text('');
@@ -363,10 +371,10 @@ session_start();
                                 $('#salir_e').html('Salir');
                                 $('#pregunta').text('El Producto se ha eliminado corectamente.');
                                 boton.hide();
-                                $('#salir_e, #cerrar_e').click(function(){
+                                $('#salir_e, #cerrar_e').click(function() {
                                     $('button[data-id="' + id + '"]').closest('tr').remove();
                                 })
-                            }else{
+                            } else {
                                 $('#registroNombre').text('');
                                 $('#registroExistencia').text('');
                                 $('#registroProveedor').text('');
@@ -375,7 +383,7 @@ session_start();
                                 boton.hide();
                             }
                             // Realiza acciones adicionales después de eliminar el registro, si es necesario
-                             // Recarga la página después de eliminar el registro
+                            // Recarga la página después de eliminar el registro
                         }
                     });
                 });

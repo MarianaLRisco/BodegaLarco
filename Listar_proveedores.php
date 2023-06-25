@@ -1,5 +1,5 @@
 <?php
-include "conexion.php";
+include "bd/conexion.php";
 session_start();
 ?>
 
@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?474'>
+    <link rel='stylesheet' href='css/system.css?484'>
     <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -27,22 +27,12 @@ session_start();
 </head>
 
 <body>
-    <?php require "header.php";?>
+    <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
-                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
-                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-                    <p class='text-light text-center order-2'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['apellido'] ?></p>
-                </div>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <?php require "menu_desplegabel.php";?>
-                </ul>
-                
-            </div>
+            <?php require "menu_desplegable.php"; ?>
             <div class="col-10 flex-shrink-0 ">
                 <section>
-
                     <div class="container-lg ">
                         <div class="container">
                             <div class="row">
@@ -63,37 +53,34 @@ session_start();
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                            <?php
-                                $query = mysqli_query($conection,"SELECT * FROM proveedor where estado_p=1 ORDER BY idproveedor");
+                            <body>
+                                <?php
+                                $query = mysqli_query($conection, "SELECT * FROM proveedor where estado=1 ORDER BY idproveedor");
                                 $resul = mysqli_num_rows($query);
-                                if($resul >0){
-                                    while($data = mysqli_fetch_array($query)){
-                                    $id = $data["idproveedor"];
-                  
-                            ?>
-                            
-                                <tr>
-                                    <td><?php echo $data["idproveedor"]?></td>
-                                    <td><?php echo $data["proveedor"]?></td>
-                                    <td><?php echo $data["contacto"]?></td>
-                                    <td><?php echo $data["DNI"]?></td>
-                                    <td><?php echo $data["telefono"]?></td>
-                                    <td><?php echo $data["direccion"]?></td>
-                                    <td>
-                                    <button class="btn btn-sm btn-success btn-editar-proveedor"  data-bs-toggle="modal" data-bs-target="#editar_proveedor"
-                                    data-id='<?php echo $data["idproveedor"]?>' >Editar</button>
-                                    <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#modal_delete" 
-                                    data-id='<?php echo $data["idproveedor"]?>' data-proveedor='<?php echo $data["proveedor"]?>' data-nombre='<?php echo $data["contacto"]?>'
-                                    data-dni='<?php echo $data["DNI"]?>'>Eliminar</button>
-                                    </td>
-                                    
+                                if ($resul > 0) {
+                                    while ($data = mysqli_fetch_array($query)) {
+                                        $id = $data["idproveedor"];
 
-                                </tr>
-                            <?php
-                             }
-                            }
-                            ?>
+                                ?>
+
+                                        <tr>
+                                            <td><?php echo $data["idproveedor"] ?></td>
+                                            <td><?php echo $data["proveedor"] ?></td>
+                                            <td><?php echo $data["contacto"] ?></td>
+                                            <td><?php echo $data["DNI"] ?></td>
+                                            <td><?php echo $data["telefono"] ?></td>
+                                            <td><?php echo $data["direccion"] ?></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-success btn-editar-proveedor" data-bs-toggle="modal" data-bs-target="#editar_proveedor" data-id='<?php echo $data["idproveedor"] ?>'>Editar</button>
+                                                <button class="btn btn-sm btn-danger btnEliminar" href="#" data-bs-toggle="modal" data-bs-target="#modal_delete" data-id='<?php echo $data["idproveedor"] ?>' data-proveedor='<?php echo $data["proveedor"] ?>' data-nombre='<?php echo $data["contacto"] ?>' data-dni='<?php echo $data["DNI"] ?>'>Eliminar</button>
+                                            </td>
+
+
+                                        </tr>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </tbody>
                         </table>
                         <a class="btn btn-primary" href="#" role="button">Registrar Proveedor</a>
@@ -113,7 +100,7 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input  type='hidden' id="id" name="id">
+                        <input type='hidden' id="id" name="id">
                         <div class="mb-2">
                             <label for="proveedor">Proveedor</label>
                             <input type="text" class="form-control" name="proveedor" id="proveedor">
@@ -137,7 +124,7 @@ session_start();
                         <div class="mb-2" id="message">
                         </div>
                         <div class="mb-2 text-center">
-                            <button  class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary" href="#" onclick="ActualizarProveedor()">Guardar</button>
 
                         </div>
@@ -156,17 +143,17 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id='cerrar_e'></button>
                 </div>
                 <div class="modal-body">
-                        <div class="mb-2 text-center">
+                    <div class="mb-2 text-center">
                         <p id='pregunta'>¿Estás seguro de que deseas eliminar este registro?</p>
                         <p id="registroProveedor"></p>
                         <p id="registroNombre"></p>
                         <p id="registroDNI"></p>
-                        </div>
-                    
-                        <div class="mb-2 text-center">
-                            <button  class="btn btn-primary" href="#" data-bs-dismiss="modal" id='salir_e'>cancelar</button>
-                            <button class="btn btn-danger" id="btnEliminarRegistro" href="#" >Eliminar</button>
-                        </div>
+                    </div>
+
+                    <div class="mb-2 text-center">
+                        <button class="btn btn-primary" href="#" data-bs-dismiss="modal" id='salir_e'>cancelar</button>
+                        <button class="btn btn-danger" id="btnEliminarRegistro" href="#">Eliminar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -213,7 +200,7 @@ session_start();
                 $('#modal_delete').modal('show');
 
                 $('#btnEliminarRegistro').click(function() {
-                    var boton = $(this); 
+                    var boton = $(this);
                     $.ajax({
                         url: 'controler/Proveedorescontrol.php?op=eliminar_proveedor',
                         type: 'POST',
@@ -221,28 +208,27 @@ session_start();
                             id: id
                         },
                         success: function(response) {
-                            if(response==1){
-                            $('#registroProveedor').text('');
-                            $('#registroNombre').text('');
-                            $('#registroDNI').text('');
-                             $('#pregunta').text('El Proveedor se ha eliminado corectamente.');
-                            boton.hide();
-                            $('#salir_e').html('Cerrar');
-                            $('#salir_e, #cerrar_e').click(function(){
-                                $('button[data-id="' + id + '"]').closest('tr').remove();
+                            if (response == 1) {
+                                $('#registroProveedor').text('');
+                                $('#registroNombre').text('');
+                                $('#registroDNI').text('');
+                                $('#pregunta').text('El Proveedor se ha eliminado corectamente.');
+                                boton.hide();
+                                $('#salir_e').html('Cerrar');
+                                $('#salir_e, #cerrar_e').click(function() {
+                                    $('button[data-id="' + id + '"]').closest('tr').remove();
                                 })
-                            }else{
+                            } else {
                                 $('#registroProveedor').text('');
                                 $('#registroNombre').text('');
                                 $('#registroDNI').text('');
                                 $('#pregunta').text('El Proveedor no se ha podido eliminar.');
-                                boton.hide();  
+                                boton.hide();
                             }
                         }
                     });
                 });
             });
         });
-
-        </script>
+    </script>
 </body>
