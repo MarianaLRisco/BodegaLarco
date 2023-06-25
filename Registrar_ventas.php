@@ -2,6 +2,7 @@
 
 include "conexion.php";
 session_start();
+
 if (!empty($_POST)) {
     $aler = '';
     if (
@@ -68,7 +69,8 @@ if (!empty($_POST)) {
         .size {
             width: 70px;
         }
-        #btn_agregar{
+
+        #btn_agregar {
             display: none;
         }
     </style>
@@ -82,7 +84,7 @@ if (!empty($_POST)) {
             <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
                 <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
                     <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
-
+                    <p class='text-light text-center order-2'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['apellido'] ?></p>
                 </div>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <?php require "menu_desplegabel.php"; ?>
@@ -121,7 +123,7 @@ if (!empty($_POST)) {
                                         </hr>
                                     </div>
                                     <div class="text-center" id="registro_cliente">
-                                    <a class="btn btn-primary btn_cliente" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
+                                        <a class="btn btn-primary btn_cliente" href="Registrar_Usuarios.php" role="button">Registrar Cliente</a>
                                     </div>
                                     <hr class="transparent-hr">
                                     </hr>
@@ -149,12 +151,12 @@ if (!empty($_POST)) {
                                         <td id="existencias">--</td>
                                         <td>
                                             <div class="col-sm-6">
-                                            <input class="form-control form-control-sm text-end" type="text" 
-                                            name="cantidad" id="cantidad" value="0" min="1" disabled></div>
+                                                <input class="form-control form-control-sm text-end" type="text" name="cantidad" id="cantidad" value="0" min="1" disabled>
+                                            </div>
                                         </td>
                                         <td id="precio" class="text-end">0.00</td>
                                         <td id="precio_total" class="text-end">0.00</td>
-                                        <td><a class="btn btn-primary" href="#" role="button" id='btn_agregar'>Agregar</a></td>
+                                        <td><a class="btn btn-primary" role="button" id='btn_agregar'>Agregar</a></td>
                                     </tr>
                                     <tr>
                                         <th>Codigo</th>
@@ -165,21 +167,11 @@ if (!empty($_POST)) {
                                         <th>Accion</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>001</td>
-                                        <td colspan="2">gaseosa cocacola</td>
-                                        <td>1</td>
-                                        <td class="text-end">6.50</td>
-                                        <td class="text-end">6.50</td>
-                                        <td><a class="btn btn-danger" href="#" role="button" onclick="event.preventDefault(); ">Eliminar</a></td>
-                                    </tr>
+                                <tbody id="detalle_venta">
+
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5" class="text-end">total</td>
-                                        <td class="text-end">6.50</td>
-                                    </tr>
+                                <tfoot id="detalle_totales">
+
                                 </tfoot>
                             </table>
 
@@ -195,6 +187,30 @@ if (!empty($_POST)) {
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $().ready(function() {
+            function searchForDetalle(id) {
+                var user = id;
+                $.ajax({
+                    url: "controler/Ventascontrol.php?op=extrae_detalle_venta",
+                    type: "POST",
+                    async: true,
+                    data: {
+                        user: user
+                    },
+                    success: function(response) {
+                        var info = JSON.parse(response);
+                        $('#detalle_venta').html(info.detalle);
+                        $('#detalle_totales').html(info.totales);
+
+                    },
+                    error: function(error) {},
+                });
+            }
+            var usuarioid = <?php echo $_SESSION['iduser']; ?>;
+            searchForDetalle(usuarioid);
+        })
+    </script>
 
 
 
@@ -204,90 +220,128 @@ if (!empty($_POST)) {
 <script src="js/getdate.js?869"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/menu.js?7796"></script>
-<script >
-        $(document).ready(function () {
+<script>
+    "/assets/scripst/ventas.js"
+</script>
+<script>
+    $(document).ready(function() {
         //buscar cliente
-        $("#dni").keyup(function (e) {
+        $("#dni").keyup(function(e) {
             e.preventDefault();
             var cl = $(this).val();
             parametros = {
-            dni: cl,
+                dni: cl,
             };
             $.ajax({
-            data: parametros,
-            url: "controler/Clientescontrol.php?op=BuscarClienteDNI",
-            type: "POST",
-            async: true,
-            success: function (response) {
-                console.log(response);
-                if(response==0){
-                    $('#idcliente').val('');
-                    $('#nombre').val('');
-                    $('#apellido').val('');
-                    $('#direccion').val('');
-                    $('#registro_cliente').slideDown();
-                }else{
-                    var data = $.parseJSON(response);
-                    $('#idcliente').val(data.idcliente);
-                    $('#nombre').val(data.nombre);
-                    $('#apellido').val(data.apellido);
-                    $('#direccion').val(data.direccion);
-                    $('#registro_cliente').slideUp();
-                }
-            },
-            error: function () {},
+                data: parametros,
+                url: "controler/Clientescontrol.php?op=BuscarClienteDNI",
+                type: "POST",
+                async: true,
+                success: function(response) {
+                    console.log(response);
+                    if (response == 0) {
+                        $('#idcliente').val('');
+                        $('#nombre').val('');
+                        $('#apellido').val('');
+                        $('#direccion').val('');
+                        $('#registro_cliente').slideDown();
+                    } else {
+                        var data = $.parseJSON(response);
+                        $('#idcliente').val(data.idcliente);
+                        $('#nombre').val(data.nombre);
+                        $('#apellido').val(data.apellido);
+                        $('#direccion').val(data.direccion);
+                        $('#registro_cliente').slideUp();
+                    }
+                },
+                error: function() {},
             });
         });
         //buscar nombre
-        $("#nombre_p").keyup(function (e) {
+        $("#nombre_p").keyup(function(e) {
             e.preventDefault();
             var pd = $(this).val();
             parametros = {
-            'nombre': pd,
+                'nombre': pd,
             };
             $.ajax({
-            data: parametros,
-            url: "controler/Productoscontrol.php?op=BuscarProductoNombre",
-            type: "POST",
-            async: true,
-            success: function (response) {
-                console.log(response);
-                if(response==0){
-                    $('#idproducto').html('--');
-                    $('#existencias').html('--');
-                    $('#precio').html('');
-                   
-                }else{
-                    var data = $.parseJSON(response);
+                data: parametros,
+                url: "controler/Productoscontrol.php?op=BuscarProductoNombre",
+                type: "POST",
+                async: true,
+                success: function(response) {
+                    console.log(response);
+                    if (response == 0) {
+                        $('#idproducto').html('--');
+                        $('#existencias').html('--');
+                        $('#precio').html('');
 
-                    $('#idproducto').html(data.idproducto);
-                    $('#existencias').html(data.cantidad);
-                    $('#cantidad').val('1');
-                    $('#precio').html(data.precio);
-                    $('#precio_total').html(data.precio);
+                    } else {
+                        var data = $.parseJSON(response);
 
-                    $('#cantidad').removeAttr('disabled');
-                    $('#btn_agregar').slideDown();
-                   
-                }
-                
-            },
-            error: function () {},
+                        $('#idproducto').html(data.idproducto);
+                        $('#existencias').html(data.cantidad);
+                        $('#cantidad').val('1');
+                        $('#precio').html(data.precio);
+                        $('#precio_total').html(data.precio);
+
+                        $('#cantidad').removeAttr('disabled');
+                        $('#btn_agregar').slideDown();
+
+                    }
+
+                },
+                error: function() {},
             });
         });
 
-        $('#cantidad').keyup(function(e){
+        $('#cantidad').keyup(function(e) {
             e.preventDefault();
-            var precio_total= $(this).val() * $('#precio').html();
-            
 
-            if($(this).val()<1 || isNaN($(this).val()) || $(this).val()>$('#existencias').html()){
+            var precio_total = $(this).val() * $('#precio').html();
+            var existencia = parseInt($('#existencias').html());
+
+            if ($(this).val() < 1 || isNaN($(this).val()) || ($(this).val() > existencia)) {
                 $('#precio_total').html('--');
                 $('#btn_agregar').slideUp();
-            }else{
+            } else {
                 $('#precio_total').html(precio_total);
                 $('#btn_agregar').slideDown();
             }
         });
+
+        $('#btn_agregar').click(function(e) {
+            e.preventDefault();
+            if ($('#cantidad').val() > 0) {
+                var idproducto = $('#idproducto').html();
+                var cantidad = $('#cantidad').val();
+                $.ajax({
+                    url: 'controler/Ventascontrol.php?op=agregar_detalle_venta',
+                    type: "POST",
+                    async: true,
+                    data: {
+                        'producto': idproducto,
+                        'cantidad': cantidad
+                    },
+                    success: function(response) {
+                        var info = JSON.parse(response);
+                        $('#detalle_venta').html(info.detalle);
+                        $('#detalle_totales').html(info.totales);
+
+                        $('#idproducto').html('--');
+                        $('#nombre_p').val('');
+                        $('#existencias').html('--');
+                        $('#cantidad').val('0');
+                        $('#precio').html('0.00');
+                        $('#precio_total').html('0.00');
+
+                        $('#cantidad').attr('disabled', 'disabled');
+                    },
+                    erro: function(error) {
+
+                    }
+                });
+            }
         });
+    });
 </script>
