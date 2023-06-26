@@ -81,7 +81,7 @@ if (!empty($_POST)) {
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <?php require "menu_desplegable.php"; ?>
-            <div class="col-10 flex-shrink-0 ">
+            <div class="container-lg col-10 flex-shrink-0 ">
                 <section class="d-flex justify-content-center ">
                     <div class="card col-sm-6 p-3 w-75">
                         <div>

@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link rel='stylesheet' href='css/system.css?484'>
+    <link rel='stylesheet' href='css/system.css?586'>
     <script src="assets/libs/jquery-3.7.0.min.js" charset="utf-8"></script>
 
     <!-- icons -->
@@ -163,7 +163,7 @@ session_start();
     <!-- Essential javascripts for application to work-->
     <script src="js/getdate.js?869"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/menu.js?7796"></script>
+    <script src="js/menu.js?69"></script>
     <script src="assets/libs/jquery-3.7.0.min.js"></script>
     <script src="assets/plugins/DataTables/datatables.min.js"></script>
     <script src="assets/plugins/DataTables/DataTables-1.13.4/js/dataTables.bootstrap5.min.js"></script>
