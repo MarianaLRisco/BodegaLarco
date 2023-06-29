@@ -81,8 +81,19 @@ if (!empty($_POST)) {
     <?php require "header.php"; ?>
     <div class="container-fluid">
         <div class="row flex-nowrap">
+<<<<<<< HEAD
+            <div class="col-auto col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark flex-column min-vh-100" data-bs-toggle="sidebar" id="sidebar">
+                <div href="/" class="d-flex align-items-center link-dark text-decoration-none border-bottom">
+                    <img src="imagenes/sinfoto.png" alt="" width="52" height="52" class="rounded-circle me-2">
+                    <p class='text-light text-center order-2'><?php echo $_SESSION['nombre'] ?><br><?php echo $_SESSION['apellido'] ?></p>
+                </div>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <?php require "menu_desplegabel.php"; ?>
+                </ul>
+            </div>
+=======
             <?php require "menu_desplegable.php"; ?>
-            <div class="container-lg col-10 flex-shrink-0 ">
+            <div class="col-10 flex-shrink-0 ">
                 <section class="d-flex justify-content-center ">
                     <div class="card col-sm-6 p-3 w-75">
                         <div>
@@ -148,7 +159,7 @@ if (!empty($_POST)) {
                                         </td>
                                         <td id="precio" class="text-end">0.00</td>
                                         <td id="precio_total" class="text-end">0.00</td>
-                                        <td><a class="btn btn-primary" href="#" role="button" id='btn_agregar'>Agregar</a></td>
+                                        <td><a class="btn btn-primary" role="button" id='btn_agregar'>Agregar</a></td>
                                     </tr>
                                     <tr>
                                         <th>Codigo</th>
@@ -159,21 +170,11 @@ if (!empty($_POST)) {
                                         <th>Accion</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>001</td>
-                                        <td colspan="2">gaseosa cocacola</td>
-                                        <td>1</td>
-                                        <td class="text-end">6.50</td>
-                                        <td class="text-end">6.50</td>
-                                        <td><a class="btn btn-danger" href="#" role="button" onclick="event.preventDefault(); ">Eliminar</a></td>
-                                    </tr>
+                                <tbody id="detalle_venta">
+
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5" class="text-end">total</td>
-                                        <td class="text-end">6.50</td>
-                                    </tr>
+                                <tfoot id="detalle_totales">
+
                                 </tfoot>
                             </table>
 
@@ -189,6 +190,30 @@ if (!empty($_POST)) {
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $().ready(function() {
+            function searchForDetalle(id) {
+                var user = id;
+                $.ajax({
+                    url: "controler/Ventascontrol.php?op=extrae_detalle_venta",
+                    type: "POST",
+                    async: true,
+                    data: {
+                        user: user
+                    },
+                    success: function(response) {
+                        var info = JSON.parse(response);
+                        $('#detalle_venta').html(info.detalle);
+                        $('#detalle_totales').html(info.totales);
+
+                    },
+                    error: function(error) {},
+                });
+            }
+            var usuarioid = <?php echo $_SESSION['iduser']; ?>;
+            searchForDetalle(usuarioid);
+        })
+    </script>
 
 
 
@@ -198,6 +223,9 @@ if (!empty($_POST)) {
 <script src="js/getdate.js?869"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/menu.js?7796"></script>
+<script>
+    "/assets/scripst/ventas.js"
+</script>
 <script>
     $(document).ready(function() {
         //buscar cliente
@@ -272,15 +300,50 @@ if (!empty($_POST)) {
 
         $('#cantidad').keyup(function(e) {
             e.preventDefault();
+
             var precio_total = $(this).val() * $('#precio').html();
+            var existencia = parseInt($('#existencias').html());
 
-
-            if ($(this).val() < 1 || isNaN($(this).val()) || $(this).val() > $('#existencias').html()) {
+            if ($(this).val() < 1 || isNaN($(this).val()) || ($(this).val() > existencia)) {
                 $('#precio_total').html('--');
                 $('#btn_agregar').slideUp();
             } else {
                 $('#precio_total').html(precio_total);
                 $('#btn_agregar').slideDown();
+            }
+        });
+
+        $('#btn_agregar').click(function(e) {
+            e.preventDefault();
+            if ($('#cantidad').val() > 0) {
+                var idproducto = $('#idproducto').html();
+                var cantidad = $('#cantidad').val();
+                $.ajax({
+                    url: 'controler/Ventascontrol.php?op=agregar_detalle_venta',
+                    type: "POST",
+                    async: true,
+                    data: {
+                        'producto': idproducto,
+                        'cantidad': cantidad
+                    },
+                    success: function(response) {
+                        var info = JSON.parse(response);
+                        $('#detalle_venta').html(info.detalle);
+                        $('#detalle_totales').html(info.totales);
+
+                        $('#idproducto').html('--');
+                        $('#nombre_p').val('');
+                        $('#existencias').html('--');
+                        $('#cantidad').val('0');
+                        $('#precio').html('0.00');
+                        $('#precio_total').html('0.00');
+
+                        $('#cantidad').attr('disabled', 'disabled');
+                    },
+                    erro: function(error) {
+
+                    }
+                });
             }
         });
     });
