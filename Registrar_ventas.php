@@ -1,7 +1,8 @@
 <?php
-
-include "bd/conexion.php";
+include ("bd/conexion.php");
+include('model/menu.php');
 session_start();
+
 if (!empty($_POST)) {
     $aler = '';
     if (

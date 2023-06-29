@@ -325,6 +325,28 @@ h1 {
   font-size: 15px!important;
   color: var(--color-cream)!important;
 }
+#map {
+  height: 50%;
+  overflow: visible;
+}
+.row{
+  display: flex;
+}
+.subitem{
+  text-align: left!important;
+  color: var(--color-black)!important;
+}
+.bold{
+  font-weight: bold;
+}
+.enlace{
+  font-weight:500;
+  color: #145dcb!important;
+  text-decoration: none!important;
+}
+.enlace:hover{
+  color:#0b2854!important;
+}
 .widget-small {
   display: -webkit-box;
   display: -ms-flexbox;

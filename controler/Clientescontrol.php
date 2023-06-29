@@ -1,7 +1,7 @@
 <?php
     
     require "../model/clientes.php";
-    include "../conexion.php";
+    include "../bd/conexion.php";
     session_start();
     $cli = new Cliente();
 

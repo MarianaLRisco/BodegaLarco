@@ -14,7 +14,6 @@
                         <i class="fa-solid fa-user menu"></i> <span class="ms-1 d-none d-sm-inline"></span>
                     </a>
                     <ul class="dropdown-menu  text-small shadow">
-                        <li><a class="item dropdown-item " href="#">Configuración</a></li>
                         <li><a class="item dropdown-item " href="#">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider">

@@ -1,6 +1,7 @@
 <?php
 include('model/menu.php');
 include('model/inicio.php');
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include('model/inicio.php');
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel='stylesheet' href='css/system.css?t868'>
+    <link rel='stylesheet' href='css/system.css?584'>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
     <script src="assets/libs/parallax.js"></script>
     <script src="libs/jquery-3.6.1.min.js" charset="utf-8"></script>
@@ -25,10 +26,13 @@ include('model/inicio.php');
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="imagenes/LARCO.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Belanosima&family=Mukta:wght@500&family=Yantramanav:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- Title -->
     <title>Sistema de inventarios</title>
 </head>
@@ -46,7 +50,7 @@ include('model/inicio.php');
                         <h1>Bienvenido a Larco</h1>
                         <img src="imagenes/LARCO.png" class="img d-inline-block">
                     </div>
-                    <!-- 
+<!--                     
                     <div class="rectangle">
                         <div class="option">
                             <a href="Listar_usuarios.php">
@@ -113,21 +117,47 @@ include('model/inicio.php');
                             <br>En Bodega Larco, nos dedicamos a ofrecer una amplia variedad de productos de alta calidad, incluyendo abarrotes, licores, cervezas y mucho más. Nuestro objetivo es proporcionar a nuestros clientes una selección cuidadosamente curada, que destaque por su excelencia y variedad, para satisfacer los gustos y preferencias más exigentes.
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div id="map" style="width: 100%; height: 352px;"></div>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="item-info mb-3">
+                                <div class="info mb-3 border-bottom ">Ubicación Bodega Larco</div>
+                                <div class="texto mb-2">
+                                    La bodega se encuentra estratégicamente ubicada en la región de La Libertad, más específicamente en la provincia de Gran Chimú, en el distrito de Cascas.
+                                    <br>Nuestra dirección exacta es: Avenida Cajamarca N°114.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-lg-8">
+                            <div class="item-info">
+                                <div class="info mb-3 border-bottom ">Contáctanos</div>
+                                <div class="texto">
+                                    Trabajador, en caso desees comunicarte con un personal, aquí hay algunos números de contacto:
+                                    <ul class="mt-3">
+                                        <li class="subitem"><label class="bold">Propietaria:</label> +51 919697124 o <a class="enlace" href="https://wa.me/51919697124" target="_blank">enviar mensaje</a></li>
+                                        <li class="subitem"><label class="bold">Administrador:</label> +51 968329331 o <a class="enlace" href="https://wa.me/51968329331" target="_blank">enviar mensaje</a>  </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <img src="imagenes/parallax.jfif" style="height: 295px; width:100%; border-radius:2px;"></img>
+                        </div>
+                        <!-- <div class="col-md-6 col-lg-3">
+                            <img src="imagenes/parallax1.jfif" style="height: 300px; width:100%;"></img>
+                        </div> -->
+                    </div>
                     <div class="item-info mb-3">
-                    <div class="info mb-3 border-bottom ">Ubicación Bodega Larco</div>
+                        <div class="info mb-3 border-bottom ">Necesitas Ayuda</div>
+                        <div class="texto">
+                            Puedes acceder a la documentación del sistema mediante <a class="enlace" href="#">este enlace.</a> 
+                        </div>
                     </div>
-                   
-                   
 
-                    <div class="random-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor, nunc nec malesuada faucibus, sapien est hendrerit enim, at congue nisl sapien vel nisi. Nullam ullamcorper, purus id viverra condimentum, mi sem tristique lacus, at gravida risus nulla non diam. Donec aliquet rutrum nibh, a efficitur erat vehicula eu. Vestibulum non ullamcorper nisi, ac ullamcorper sem. Sed iaculis mi eu eleifend fringilla. Etiam facilisis tortor ac elit malesuada pulvinar. Nunc nec magna vestibulum, fringilla ligula ut, efficitur lorem. Vestibulum faucibus facilisis orci, in faucibus massa consectetur eget. Sed ac quam interdum, mollis erat in, euismod orci. Vestibulum laoreet, urna vitae tempus scelerisque, quam tortor placerat elit, eget ultricies nunc mauris a risus. Integer vulputate urna sit amet diam venenatis scelerisque. Suspendisse vitae risus facilisis, volutpat magna et, ultrices tellus.
-                    </div>
-                    <div class="random-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor, nunc nec malesuada faucibus, sapien est hendrerit enim, at congue nisl sapien vel nisi. Nullam ullamcorper, purus id viverra condimentum, mi sem tristique lacus, at gravida risus nulla non diam. Donec aliquet rutrum nibh, a efficitur erat vehicula eu. Vestibulum non ullamcorper nisi, ac ullamcorper sem. Sed iaculis mi eu eleifend fringilla. Etiam facilisis tortor ac elit malesuada pulvinar. Nunc nec magna vestibulum, fringilla ligula ut, efficitur lorem. Vestibulum faucibus facilisis orci, in faucibus massa consectetur eget. Sed ac quam interdum, mollis erat in, euismod orci. Vestibulum laoreet, urna vitae tempus scelerisque, quam tortor placerat elit, eget ultricies nunc mauris a risus. Integer vulputate urna sit amet diam venenatis scelerisque. Suspendisse vitae risus facilisis, volutpat magna et, ultrices tellus.
-                    </div>
-                    <div class="random-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum auctor, nunc nec malesuada faucibus, sapien est hendrerit enim, at congue nisl sapien vel nisi. Nullam ullamcorper, purus id viverra condimentum, mi sem tristique lacus, at gravida risus nulla non diam. Donec aliquet rutrum nibh, a efficitur erat vehicula eu. Vestibulum non ullamcorper nisi, ac ullamcorper sem. Sed iaculis mi eu eleifend fringilla. Etiam facilisis tortor ac elit malesuada pulvinar. Nunc nec magna vestibulum, fringilla ligula ut, efficitur lorem. Vestibulum faucibus facilisis orci, in faucibus massa consectetur eget. Sed ac quam interdum, mollis erat in, euismod orci. Vestibulum laoreet, urna vitae tempus scelerisque, quam tortor placerat elit, eget ultricies nunc mauris a risus. Integer vulputate urna sit amet diam venenatis scelerisque. Suspendisse vitae risus facilisis, volutpat magna et, ultrices tellus.
-                    </div>
                 </div>
             </div>
         </div>
@@ -141,4 +171,7 @@ include('model/inicio.php');
     <script type="text/javascript" src="js/charts.js?488"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/menu.js?575"></script>
+    <script src="js/map.js?4855"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik&callback=iniciarMap"></script>
+
 </body>
